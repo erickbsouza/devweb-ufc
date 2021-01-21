@@ -1,0 +1,74 @@
+.header {
+    background-color: #2421dd;
+    text-align: center;
+    padding: 20px;
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: #333;
+}
+
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.footer {
+    background-color: #F1F1F1;
+    text-align: center;
+    padding: 10px;
+}
+
+.column {
+    width: 100%;
+}
+
+.column-w20 {
+    width: 20%;
+    float: right;
+    position: relative;
+}
+
+.map {
+    width: 15px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    height: 15px;
+}
+
+.img {
+    max-width: 150px;
+    max-height: 150px;
+    display: block;
+    width: auto;
+    height: auto;
+}
+
+.card {
+    width: 80%;
+    background-color: coral;
+    margin: 50px;
+    border: 2px;
+    border-color: black;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+    padding: 10px 10px;
+}
+
+.card-header {
+    padding: 15px 10px;
+    background-color: rgb(236, 113, 69);
+}

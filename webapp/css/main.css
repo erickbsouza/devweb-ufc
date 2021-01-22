@@ -1,18 +1,28 @@
-.header {
-    background-color: #2421dd;
+header {
+    background-color: #d7e3e3;
     text-align: center;
     padding: 20px;
+    margin: 0px;
+}
+
+.title {
+    font-size: 25px;
+    color: #000;
+    text-shadow: 0 0 4px #FFF;
 }
 
 .topnav {
     overflow: hidden;
-    background-color: #333;
+    background-color: #e6fafb;
+    border-color: #d7e3e3;
+    border-bottom-style: solid;
+    border-width: 0.1ch;
 }
 
 .topnav a {
     float: left;
     display: block;
-    color: #f2f2f2;
+    color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -56,12 +66,15 @@
 }
 
 .card {
-    width: 80%;
-    background-color: coral;
-    margin: 50px;
+    width: 100%;
+    background-color: #e6fafb;
     border: 2px;
     border-color: black;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    align-self: center;
+    min-height: 200px;
+    border-top-left-radius: 0.5cm;
+    border-top-right-radius: 0.5cm;
 }
 
 .card-body {
@@ -70,5 +83,35 @@
 
 .card-header {
     padding: 15px 10px;
-    background-color: rgb(236, 113, 69);
+    background-color: #d7e3e3;
+    border-top-left-radius: 0.5cm;
+    border-top-right-radius: 0.5cm;
 }
+
+.card-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.column-4 {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 41%;
+    margin: 15px 20px;
+}
+
+.flex-between {
+    justify-content: space-between;
+    flex-direction: row;
+    display: flex;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }

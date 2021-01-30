@@ -115,3 +115,9 @@ header {
     outline: none;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
+
+
+.map-image {
+    width:100%; 
+    height: 500px;
+}

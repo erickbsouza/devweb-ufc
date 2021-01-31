@@ -79,6 +79,7 @@ header {
 
 .card-body {
     padding: 10px 10px;
+    overflow:hidden;
 }
 
 .card-header {
@@ -116,8 +117,24 @@ header {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
 
+.map {
+    border: 5px solid #A0E7E5;
+    width: 350px;
+    height: 250px;
+    margin: 10px auto;
+    overflow: hidden;
 
-.map-image {
-    width:100%; 
-    height: 500px;
+}
+
+.m-image {
+    width: 100%;
+    height: 100%;
+    transition: transform .4s;
+}
+
+.m-image:hover {
+    -ms-transform: scale(1.8); /* IE 9 */
+    -webkit-transform: scale(1.8); /* Safari 3-8 */
+    transform: scale(1.8); 
+    transform-origin: 50% 50%;
 }

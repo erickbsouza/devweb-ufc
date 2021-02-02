@@ -1,0 +1,234 @@
+header {
+    background-color: #293535;
+    text-align: center;
+    padding: 20px;
+    margin: 0px;
+}
+
+.title {
+    font-size: 25px;
+    color: rgb(240, 236, 236);
+    text-shadow: 0 0 4px rgb(144, 202, 212);
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: #465353;
+    border-color: #6e7979;
+    border-bottom-style: solid;
+    border-width: 0.1ch;
+}
+
+.topnav a {
+    float: left;
+    display: block;
+    color: rgb(243, 240, 240);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.topnav a:hover {
+    background-color: rgba(221, 221, 221, 0.233);
+    color: black;
+}
+
+.footer {
+    background-color: #293535;
+    text-align: center;
+    padding: 10px;
+    color: rgb(243, 240, 240);
+}
+
+.column {
+    width: 100%;
+}
+
+.column-w20 {
+    width: 20%;
+    float: right;
+    position: relative;
+}
+
+.map {
+    width: 15px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    height: 15px;
+}
+
+.img {
+    max-width: 150px;
+    max-height: 150px;
+    display: block;
+    width: auto;
+    height: auto;
+}
+
+.card {
+    width: 100%;
+    background-color: #293535;
+    border: 2px;
+    border-color: rgb(128, 125, 125);
+    box-shadow: 0 4px 8px 0 rgba(241, 238, 238, 0.2);
+    align-self: center;
+    min-height: 200px;
+    border-top-left-radius: 0.5cm;
+    border-top-right-radius: 0.5cm;
+    color: rgb(243, 240, 240);
+    background-color: #465353;
+}
+
+.card-body {
+    padding: 10px 10px;
+    overflow: hidden;
+    background-color: #465353;
+}
+
+.card-header {
+    padding: 15px 10px;
+    background-color: #293535;
+    border-top-left-radius: 0.5cm;
+    border-top-right-radius: 0.5cm;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    background-color: #697a7a;
+}
+
+.column-4 {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 41%;
+    margin: 15px 20px;
+}
+
+.flex-between {
+    justify-content: space-between;
+    flex-direction: row;
+    display: flex;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.map-image {
+    width: 100%;
+    height: 500px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 99999;
+    opacity: 1;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+    pointer-events: none;
+}
+
+.modal:target {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal>div {
+    width: 400px;
+    position: relative;
+    margin: 10% auto;
+    background: #fff;
+}
+
+.fechar {
+    position: absolute;
+    width: 30px;
+    right: -15px;
+    top: -20px;
+    text-align: center;
+    line-height: 30px;
+    margin-top: 5px;
+    background: #ff4545;
+    border-radius: 50%;
+    font-size: 16px;
+    color: #faf5f5;
+}
+
+input[type=text],
+input[type=date],
+input[type=time] {
+    box-sizing: border-box;
+    border: 2px solid rgb(145, 144, 144);
+    border-radius: 4px;
+    background-color: #666565;
+    transition: width 0.4s ease-in-out;
+    color: white;
+}
+
+input[type=text]:focus {
+    width: 100%;
+    border: 3px solid rgb(137, 152, 241);
+}
+
+input[type=button],
+input[type=submit],
+input[type=reset] {
+    background-color: #07105e;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.textarea {
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+}
+
+.map {
+    border: 5px solid #A0E7E5;
+    width: 350px;
+    height: 250px;
+    margin: 10px auto;
+    overflow: hidden;
+}
+
+.m-image {
+    width: 100%;
+    height: 100%;
+    transition: transform .4s;
+}
+
+.m-image:hover {
+    -ms-transform: scale(1.8);
+    /* IE 9 */
+    -webkit-transform: scale(1.8);
+    /* Safari 3-8 */
+    transform: scale(1.8);
+    transform-origin: 50% 50%;
+}

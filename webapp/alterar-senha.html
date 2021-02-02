@@ -19,9 +19,9 @@
 
     <div class="topnav">
         <a href="index-search-modal.html">Buscar</a>
-        <a href="index-create-modal.html">Criar</a>
+        <a href="index-modal.html#criar">Criar</a>
         <a href="revisar.html">Revisar</a>
-        <a href="alterar-senha.html">Alterar Senha</a>
+        <a href="alterar-senha.html#alterar">Alterar Senha</a>
         <a href="index-nao-aut.html">Logout</a>
     </div>
 
@@ -186,6 +186,34 @@
         
                 </div> 
             </div>
+    </div>
+    
+    <div id="alterar" class="modal">
+        <div class="card">
+            <div class="card-header flex-between">Altere sua senha <i class="material-icons">local_police</i></div>
+            <div class="card-body">
+                <div>
+                    <div class="column-4">
+                        <span>Senha anterior:</span>
+                        <input type="text">
+                    </div>
+                    <div class="column-4">
+                        <span>Nova senha:</span>
+                        <input type="text">
+                    </div>
+                    <div class="column-4">
+                        <span>Confirmar nova senha:</span>
+                        <input type="text">
+                    </div>
+                    
+                </div>
+
+                <input type="submit">
+
+            </div>
+
+            <a href="#fechar" title="Fechar" class="fechar">x</a>
+        </div>
     </div>
 
     <div class="footer">

@@ -18,10 +18,10 @@
     </header>
 
     <div class="topnav">
-        <a href="index-search-modal.html">Buscar</a>
-        <a href="index-modal.html#criar">Criar</a>
-        <a href="revisar.html">Revisar</a>
-        <a href="alterar-senha.html#alterar">Alterar Senha</a>
+        <a href="#buscar">Buscar</a>
+        <a href="#criar">Criar</a>
+        <a href="#revisar">Revisar</a>
+        <a href="index-password-modal.html">Alterar Senha</a>
         <a href="index-nao-aut.html">Logout</a>
     </div>
 
@@ -185,6 +185,80 @@
                 </div>
     
             </div> 
+        </div>
+    </div>
+
+    <div id="criar" class="modal">
+        <div class="card">
+            <div class="card-header flex-between">Escrever nova ocorrência <i class="material-icons">local_police</i></div>
+            <div class="card-body">
+                <div>
+                    <div class="column-4">
+                        <span>Título</span>
+                        <input type="text">
+                    </div>
+                    <div class="column-4">
+                        <span>Data</span>
+                        <input type="date">
+                    </div>
+                    <div class="column-4">
+                        <span>Horário</span>
+                        <input type="time">
+                    </div>
+                    <div class="column-4">
+                        <span>Descrição</span>
+                        <input type="text" class="textarea">
+                    </div>
+                    <div class="column-4">
+                        <span>Localização</span>
+                        <input type="text">
+                    </div>
+                </div>
+
+                <input type="submit">
+
+            </div>
+
+            <a href="#fechar" title="Fechar" class="fechar">x</a>
+        </div>
+    </div>
+
+    <div id="buscar" class="modal">
+        <div class="card">
+            <div class="card-header flex-between">Buscar ocorrência <i class="material-icons">local_police</i></div>
+            <div class="card-body">
+
+                <div class="column-4">
+                    <span>Filtrar por:</span>
+                </div>
+
+                <input type="checkbox" id="search1" name="search1" checked>
+                <label for="search1"> Título:</label>
+                <div class="column-4">
+                    <input type="text">
+                </div>
+
+                <input type="checkbox" id="search2" name="search2">
+                <label for="search2"> Data:</label>
+                <div class="column-4">
+                    <input type="text">
+                </div>
+                    
+                <input type="checkbox" id="search3" name="search3">
+                <label for="search3"> Horário:</label>
+                <div class="column-4">
+                    <input type="text">
+                </div>
+                    
+                <input type="checkbox" id="search4" name="search4">
+                <label for="search4"> Localização:</label>
+                <div class="column-4">
+                    <input type="text">
+                </div>
+                
+                <input type="submit">
+            </div>
+            <a href="#fechar" title="Fechar" class="fechar">x</a>
         </div>
     </div>
 

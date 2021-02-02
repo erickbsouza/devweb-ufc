@@ -19,7 +19,7 @@
 
     <div class="topnav">
         <a href="index-login-modal.html">Login</a>
-        <a href="index-search-modal.html">Buscas</a>
+        <a href="#buscar">Buscar</a>
         <a href="#criar">Criar</a>
         <a href="#revisar">Revisar</a>
         <a href="index-password-modal.html">Alterar Senha</a>
@@ -55,7 +55,7 @@
                     </div>
                     <div>
                         <div class="map">
-                            <img class="m-image" src="images/map-1.PNG">
+                            <img class="m-image" src="images/map-1.PNG" alt="Google Maps">
                         </div>
                         <p class="map-description">Av. Antônio Sales, 3451. Fortaleza-CE</p>
                     </div>
@@ -91,7 +91,7 @@
                     </div>
                     <div>
                         <div class="map">
-                            <img class="m-image" src="images/map-2.PNG">
+                            <img class="m-image" src="images/map-2.PNG" alt="Google Maps">
                         </div>
                         <p class="map-description">Rua do Oriente, 1005. Fortaleza-CE</p>
                     </div>
@@ -127,7 +127,7 @@
                     </div>
                     <div>
                         <div class="map">
-                            <img class="m-image" src="images/map-3.PNG">
+                            <img class="m-image" src="images/map-3.PNG" alt="Google Maps">
                         </div>
                         <p class="map-description">Av. Humberto Monte, 3451. Fortaleza-CE</p>
                     </div>
@@ -140,7 +140,7 @@
                 <div class="card-body">
                     informacoes, ultimo update, data, mapa
                     <div class="map">
-                        <img class="m-image" src="images/map-4.PNG">
+                        <img class="m-image" src="images/map-4.PNG" alt="Google Maps">
                     </div>
                 </div>
     
@@ -155,7 +155,7 @@
                     <div>Ultimo update</div>
 
                     <div class="map">
-                        <img class="m-image" src="images/map-1.PNG">
+                        <img class="m-image" src="images/map-1.PNG" alt="Google Maps">
                     </div>
 
                 </div>
@@ -179,7 +179,7 @@
                         <input>
                     </div>
                     <div class="map">
-                        <img class="m-image" src="images/map-5.PNG">
+                        <img class="m-image" src="images/map-5.PNG" alt="Google Maps">
                     </div>
                 </div>
     
@@ -218,6 +218,45 @@
 
             </div>
 
+            <a href="#fechar" title="Fechar" class="fechar">x</a>
+        </div>
+    </div>
+
+    <div id="buscar" class="modal">
+        <div class="card">
+            <div class="card-header flex-between">Buscar ocorrência <i class="material-icons">local_police</i></div>
+            <div class="card-body">
+
+                <div class="column-4">
+                    <span>Filtrar por:</span>
+                </div>
+
+                <input type="checkbox" id="search1" name="search1" checked>
+                <label for="search1"> Título:</label>
+                <div class="column-4">
+                    <input type="text">
+                </div>
+
+                <input type="checkbox" id="search2" name="search2">
+                <label for="search2"> Data:</label>
+                <div class="column-4">
+                    <input type="text">
+                </div>
+                    
+                <input type="checkbox" id="search3" name="search3">
+                <label for="search3"> Horário:</label>
+                <div class="column-4">
+                    <input type="text">
+                </div>
+                    
+                <input type="checkbox" id="search4" name="search4">
+                <label for="search4"> Localização:</label>
+                <div class="column-4">
+                    <input type="text">
+                </div>
+                
+                <input type="submit">
+            </div>
             <a href="#fechar" title="Fechar" class="fechar">x</a>
         </div>
     </div>

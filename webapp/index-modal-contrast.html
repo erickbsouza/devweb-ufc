@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <link rel='stylesheet' type='text/css' media='screen' href='css/main-contrast.css' />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src='js/main.js'></script>
+</head>
+
+<body>
+
+    <header>
+        <h5 class="title">Projeto DevWeb 1.0</h5>
+    </header>
+
+    <div class="topnav">
+        <a href="index-login-modal.html">Login</a>
+        <a href="index-search-modal.html">Buscas</a>
+        <a href="#criar">Criar</a>
+        <a href="#revisar">Revisar</a>
+        <a href="index-password-modal.html">Alterar Senha</a>
+    </div>
+
+    <div class="card-container">
+        <div class="column-4">
+            <div class="card">
+                <div class="card-header flex-between">titulo <i class="material-icons">local_police</i></div>
+                <div class="card-body">
+                    informacoes, ultimo update, data, mapa
+                </div>
+
+            </div>
+        </div>
+        <div class="column-4">
+            <div class="card">
+                <div class="card-header flex-between">titulo <i class="material-icons">local_fire_department</i></div>
+                <div class="card-body">
+                    informacoes, ultimo update, data, mapa
+                </div>
+
+            </div>
+        </div>
+        <div class="column-4">
+            <div class="card">
+                <div class="card-header flex-between">titulo <i class="material-icons">local_hospital</i></div>
+                <div class="card-body">
+                    informacoes, ultimo update, data, mapa
+                </div>
+
+            </div>
+        </div>
+        <div class="column-4">
+            <div class="card">
+                <div class="card-header">titulo</div>
+                <div class="card-body">
+                    informacoes, ultimo update, data, mapa
+                </div>
+
+            </div>
+        </div>
+        <div class="column-4">
+            <div class="card">
+                <img class="map-image" src="images/map-1.PNG">
+                <div class="card-header">Título + Data + hora</div>
+                <div class="card-body">
+                    <p>Descrição</p>
+
+                    <div>Ultimo update</div>
+                </div>
+
+            </div>
+        </div>
+        <div class="column-4">
+            <div class="card">
+                <div class="card-header">titulo</div>
+                <div class="card-body">
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div id="criar" class="modal">
+        <div class="card">
+            <div class="card-header flex-between">Escrever nova ocorrência <i class="material-icons">local_police</i></div>
+            <div class="card-body">
+                <div>
+                    <div class="column-4">
+                        <span>Título</span>
+                        <input type="text">
+                    </div>
+                    <div class="column-4">
+                        <span>Data</span>
+                        <input type="date">
+                    </div>
+                    <div class="column-4">
+                        <span>Horário</span>
+                        <input type="time">
+                    </div>
+                    <div class="column-4">
+                        <span>Descrição</span>
+                        <input type="text" class="textarea">
+                    </div>
+                    <div class="column-4">
+                        <span>Localização</span>
+                        <input type="text">
+                    </div>
+                </div>
+
+                <input type="submit">
+
+            </div>
+
+            <a href="#fechar" title="Fechar" class="fechar">x</a>
+        </div>
+    </div>
+
+    <div class="footer">
+        Equipe: Erick, Alan, Matheus, Andrea
+    </div>
+
+</body>
+
+</html>

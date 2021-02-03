@@ -175,7 +175,8 @@ header {
 
 input[type=text],
 input[type=date],
-input[type=time] {
+input[type=time],
+input[type=password] {
     box-sizing: border-box;
     border: 2px solid rgb(145, 144, 144);
     border-radius: 4px;
@@ -184,7 +185,10 @@ input[type=time] {
     color: white;
 }
 
-input[type=text]:focus {
+input[type=text]:focus,
+input[type=date]:focus,
+input[type=time]:focus,
+input[type=password]:focus {
     width: 100%;
     border: 3px solid rgb(137, 152, 241);
 }
@@ -233,4 +237,129 @@ input[type=reset] {
     /* Safari 3-8 */
     transform: scale(1.8);
     transform-origin: 50% 50%;
+}
+
+.flex {
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+}
+
+.mr-10 {
+    margin-right: 10px;
+}
+
+.card-title {
+    font-size: large;
+    font-weight: bold;
+}
+
+.occurrence-details {
+    width: 75%;
+}
+
+.card-item-text-topic {
+    font-size: medium;
+    font-weight: bold;
+}
+
+.card-item-text-content {
+    font-size: medium;
+}
+
+.map-description {
+    font-size: small;
+}
+
+.occurrence-situation-resolved {
+    color: #6495ed;
+}
+
+.occurrence-situation-pending {
+    color: #ddc91b;
+}
+
+.occurrence-situation-hapenning {
+    color: #e2654f;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.severity-progressbar-container {
+    background-color: rgb(192, 181, 181);
+    border-radius: 20px;
+    width: 300px;
+    height: 8px;
+    margin-top: 2px;
+}
+
+.severity-progressbar-content-low {
+    background-color: green;
+    width: 33%;
+    height: 8px;
+    border-radius: 20px;
+    opacity: 50%;
+}
+
+.severity-progressbar-content-medium {
+    background-color: yellow;
+    width: 66%;
+    height: 8px;
+    border-radius: 20px;
+    opacity: 50%;
+}
+
+.severity-progressbar-content-high {
+    background-color: red;
+    width: 100%;
+    border-radius: 20px;
+    height: 8px;
+    opacity: 50%;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.flex-column-space-between {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

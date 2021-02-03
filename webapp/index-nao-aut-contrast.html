@@ -6,7 +6,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge' />
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1' />
-    <link rel='stylesheet' type='text/css' media='screen' href='css/main.css' />
+    <link rel='stylesheet' type='text/css' media='screen' href='css/main-contrast.css' />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src='js/main.js'></script>
 </head>
@@ -18,12 +18,9 @@
     </header>
 
     <div class="topnav">
-        <a href="#buscar">Buscar</a>
-        <a href="#criar">Criar</a>
-        <a href="#revisar">Revisar</a>
-        <a href="#alterar">Alterar Senha</a>
-        <a href="index-nao-aut.html">Logout</a>
-        <a href="index-aut-contrast.html">Modo Escuro</a>
+        <a href="#login">Login</a>
+        <a href="index-search-modal.html">Buscar</a>
+        <a href="index-nao-aut.html">Modo Claro</a>
     </div>
 
 
@@ -240,102 +237,22 @@
         </div>
     </div>
 
-    <div id="criar" class="modal">
+    <div id="login" class="modal">
         <div class="card">
-            <div class="card-header flex-between">Escrever nova ocorrência <i class="material-icons">local_police</i></div>
+            <div class="card-header">Login</div>
             <div class="card-body">
-                <div>
+                <form method="GET" action="index-aut-contrast.html">
                     <div class="column-4">
-                        <span>Título</span>
-                        <input type="text">
+                        <span>Usuário</span>
+                        <input type="text" name="user">
                     </div>
                     <div class="column-4">
-                        <span>Data</span>
-                        <input type="date">
-                    </div>
-                    <div class="column-4">
-                        <span>Horário</span>
-                        <input type="time">
-                    </div>
-                    <div class="column-4">
-                        <span>Descrição</span>
-                        <input type="text" class="textarea">
-                    </div>
-                    <div class="column-4">
-                        <span>Localização</span>
-                        <input type="text">
-                    </div>
-                </div>
-
-                <input type="submit">
-
-            </div>
-
-            <a href="#fechar" title="Fechar" class="fechar">x</a>
-        </div>
-    </div>
-
-    <div id="buscar" class="modal">
-        <div class="card">
-            <div class="card-header flex-between">Buscar ocorrência <i class="material-icons">local_police</i></div>
-            <div class="card-body">
-
-                <div class="column-4">
-                    <span>Filtrar por:</span>
-                </div>
-
-                <input type="checkbox" id="search1" name="search1" checked>
-                <label for="search1"> Título:</label>
-                <div class="column-4">
-                    <input type="text">
-                </div>
-
-                <input type="checkbox" id="search2" name="search2">
-                <label for="search2"> Data:</label>
-                <div class="column-4">
-                    <input type="text">
-                </div>
-
-                <input type="checkbox" id="search3" name="search3">
-                <label for="search3"> Horário:</label>
-                <div class="column-4">
-                    <input type="text">
-                </div>
-
-                <input type="checkbox" id="search4" name="search4">
-                <label for="search4"> Localização:</label>
-                <div class="column-4">
-                    <input type="text">
-                </div>
-
-                <input type="submit">
-            </div>
-            <a href="#fechar" title="Fechar" class="fechar">x</a>
-        </div>
-    </div>
-
-    <div id="alterar" class="modal">
-        <div class="card">
-            <div class="card-header flex-between">Altere sua senha <i class="material-icons">local_police</i></div>
-            <div class="card-body">
-                <div>
-                    <div class="column-4">
-                        <span>Senha anterior:</span>
-                        <input type="text">
-                    </div>
-                    <div class="column-4">
-                        <span>Nova senha:</span>
-                        <input type="text">
-                    </div>
-                    <div class="column-4">
-                        <span>Confirmar nova senha:</span>
-                        <input type="text">
+                        <span>Senha</span>
+                        <input type="password" name="password">
                     </div>
 
-                </div>
-
-                <input type="submit">
-
+                    <input type="submit">
+                </form>
             </div>
 
             <a href="#fechar" title="Fechar" class="fechar">x</a>

@@ -8,7 +8,7 @@
     <meta name='viewport' content='width=device-width, initial-scale=1' />
     <link rel='stylesheet' type='text/css' media='screen' href='css/common.css' />
     <link rel='stylesheet' type='text/css' media='screen' href='css/main.css' />
-    <link rel='stylesheet' type='text/css' media='screen' href='css/font/font-medium.css' />
+    <link rel='stylesheet' type='text/css' media='screen' href='css/font/font-small.css' />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src='js/main.js'></script>
 </head>
@@ -20,9 +20,20 @@
     </header>
 
     <div class="topnav">
-        <a href="#login">Login</a>
         <a href="#buscar">Buscar</a>
-        <a href="index-nao-aut-contrast.html">Modo Escuro</a>
+        <a href="#criar">Criar</a>
+        <a href="#revisar">Revisar</a>
+        <a href="#alterar">Alterar Senha</a>
+        <a href="index-nao-aut.html">Logout</a>
+        <a href="index-aut-contrast.html">Modo Escuro</a>
+        <div class="dropdown">
+            <a>Fonte</a>
+            <div class="dropdown-content">
+                <a class="select-small-font" href="#">Pequena</a>
+                <a class="select-medium-font" href="index-aut.html">Média</a>
+                <a class="select-large-font" href="index-aut-large.html">Grande</a>
+            </div>
+        </div>
     </div>
 
 
@@ -239,22 +250,35 @@
         </div>
     </div>
 
-    <div id="login" class="modal">
+    <div id="criar" class="modal">
         <div class="card">
-            <div class="card-header">Login</div>
+            <div class="card-header flex-between">Escrever nova ocorrência <i class="material-icons">local_police</i></div>
             <div class="card-body">
-                <form method="GET" action="index-aut.html">
+                <div>
                     <div class="column-4">
-                        <span>Usuário</span>
-                        <input type="text" name="user">
+                        <span>Título</span>
+                        <input type="text">
                     </div>
                     <div class="column-4">
-                        <span>Senha</span>
-                        <input type="password" name="password">
+                        <span>Data</span>
+                        <input type="date">
                     </div>
+                    <div class="column-4">
+                        <span>Horário</span>
+                        <input type="time">
+                    </div>
+                    <div class="column-4">
+                        <span>Descrição</span>
+                        <input type="text" class="textarea">
+                    </div>
+                    <div class="column-4">
+                        <span>Localização</span>
+                        <input type="text">
+                    </div>
+                </div>
 
-                    <input type="submit">
-                </form>
+                <input type="submit">
+
             </div>
 
             <a href="#fechar" title="Fechar" class="fechar">x</a>
@@ -296,6 +320,34 @@
 
                 <input type="submit">
             </div>
+            <a href="#fechar" title="Fechar" class="fechar">x</a>
+        </div>
+    </div>
+
+    <div id="alterar" class="modal">
+        <div class="card">
+            <div class="card-header flex-between">Altere sua senha <i class="material-icons">local_police</i></div>
+            <div class="card-body">
+                <div>
+                    <div class="column-4">
+                        <span>Senha anterior:</span>
+                        <input type="text">
+                    </div>
+                    <div class="column-4">
+                        <span>Nova senha:</span>
+                        <input type="text">
+                    </div>
+                    <div class="column-4">
+                        <span>Confirmar nova senha:</span>
+                        <input type="text">
+                    </div>
+
+                </div>
+
+                <input type="submit">
+
+            </div>
+
             <a href="#fechar" title="Fechar" class="fechar">x</a>
         </div>
     </div>

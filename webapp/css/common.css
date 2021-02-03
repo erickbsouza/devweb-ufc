@@ -120,26 +120,8 @@
     margin-right: 10px;
 }
 
-.card-title {
-    font-size: large;
-    font-weight: bold;
-}
-
 .occurrence-details {
     width: 75%;
-}
-
-.card-item-text-topic {
-    font-size: medium;
-    font-weight: bold;
-}
-
-.card-item-text-content {
-    font-size: medium;
-}
-
-.map-description {
-    font-size: small;
 }
 
 .occurrence-situation-resolved {
@@ -195,3 +177,15 @@
     flex-direction: column;
     justify-content: space-between;
 }
+
+  .select-small-font {
+      font-size: small;
+  }
+
+  .select-medium-font {
+      font-size: medium;
+  }
+
+  .select-large-font {
+      font-size: large;
+  }

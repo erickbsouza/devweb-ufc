@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: large;
+}
+
+
+
+.card-title {
+    font-size: larger;
+    font-weight: bold;
+}
+
+.card-item-text-topic {
+    font-size: large;
+    font-weight: bold;
+}
+
+.card-item-text-content {
+    font-size: large;
+}
+
+.map-description {
+    font-size: medium;
+}

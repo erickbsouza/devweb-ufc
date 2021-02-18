@@ -189,3 +189,7 @@
   .select-large-font {
       font-size: large;
   }
+
+  header > a {
+      text-decoration: none;
+  }

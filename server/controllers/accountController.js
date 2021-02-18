@@ -29,8 +29,25 @@ router.get('/perfil', async (req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
         user = await accountService.getAuthenticatedUser(token);
-        if (user){
-            res.customRender('user/perfil-user', user, {});
+        if (user!=null){
+            res.customRender('user/perfil-user', user, {user:user});
+        }
+        else {
+            res.redirect('/account/logout');
+        }
+    }
+    else {
+        res.redirect('/');
+    }
+
+})
+
+router.get('/editar-perfil', async (req, res) => {
+    if (req.query.token || req.cookies.token) {
+        token = req.query.token ? req.query.token : req.cookies.token;
+        user = await accountService.getAuthenticatedUser(token);
+        if (user!=null){
+            res.customRender('user/perfil-user', user, {user:user});
         }
         else {
             res.redirect('/account/logout');

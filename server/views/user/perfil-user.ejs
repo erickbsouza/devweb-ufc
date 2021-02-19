@@ -12,80 +12,48 @@
                             <p class="card-item-text-topic">Foto de Perfil </p>
                             <div class="pr">
                                 <img class="p-image" src="/images/profile-picture.png" alt="Foto de Perfil">
-                                <p>Nome: <% pageData.user.name %></p>
-                                <p>Nome de Usuário: Joao_Silva</p>
-                                <p>Email: joao.silva2@gmail.com</p>
                             </div>
 
                             <div class="hr"><hr></div>
-                            <p>E-mail: </p>
-                            <p class="card-item-text-content">
-                                <div class="column-4">
-                                    <input type="text">
-                                </div>
-                            </p>
 
-                            <p>Nome: </p>
-                            <p class="card-item-text-content">
-                                <div class="column-4">
-                                    <input type="text">
-                                </div>
-                            </p>
+                            <form method="POST" action="/account/salvar-alteracoes">
+		                        <p>E-mail: </p>
+		                        <p class="card-item-text-content">
+		                            <div class="column-4">
+		                                <input type="text" name="email">
+		                            </div>
+		                        </p>
 
-                            <p>Sobrenome: </p>
-                            <p class="card-item-text-content">
-                                <div class="column-4">
-                                    <input type="text">
-                                </div>
-                            </p>
+		                        <p>Nome: </p>
+		                        <p class="card-item-text-content">
+		                            <div class="column-4">
+		                                <input type="text" name="name">
+		                            </div>
+		                        </p>
 
-                            <p>Nome de Usuário: </p>
-                            <p class="card-item-text-content">
-                                <div class="column-4">
-                                    <input type="text">
-                                </div>
-                            </p>
 
-                            <p>Número do Telefone: </p>
-                            <p class="card-item-text-content">
-                                <div class="column-4">
-                                    <input type="text">
-                                </div>
-                            </p>
+		                        <p>Nome de Usuário: </p>
+		                        <p class="card-item-text-content">
+		                            <div class="column-4">
+		                                <input type="text" name="username">
+		                            </div>
+		                        </p>
 
-                            <p>Descrição: </p>
-                            <p class="card-item-text-content">
-                                <div class="column-4">
-                                    <input type="text" class="textarea">
-                                </div>
-                            </p>
+		                        <p>Número do Telefone: </p>
+		                        <p class="card-item-text-content">
+		                            <div class="column-4">
+		                                <input type="text" name="number">
+		                            </div>
+		                        </p>
 
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="pref" class="column-info">
-        <div class="column-4">
-            <div class="card">
-                <div class="card-header flex-between">
-                    <p class="card-title">Preferências de Acessibilidade</p>
-                </div>
-                <div class="card-body flex-between">
-                    <div class="info">
-                        <div>
-                            <p class="card-item-text-topic">Escolha o tema da página </p>
-                            <p class="card-item-text-content">
-                                <a href="profile-edit.html#pref"> Claro</a>
-                                <a href="profile-edit-contrast.html#pref"> Escuro</a>
-                            </p>
-                            <p class="card-item-text-topic">Escolha o tamanho da fonte </p>
-                            <p class="card-item-text-content">
-                                <a href="profile-edit-small.html#pref"> Pequena</a>
-                                <a href="profile-edit.html#pref"> Médio</a>
-                                <a href="profile-edit-large.html#pref"> Grande</a>
+		                        <p>Descrição: </p>
+		                        <p class="card-item-text-content">
+		                            <div class="column-4">
+		                                <input type="text" class="textarea" name="description">
+		                            </div>
+		                        </p>
+		                        <input type="submit">
+		                    </form>
                             </p>
                         </div>
                     </div>
@@ -102,18 +70,21 @@
                 <div class="card-body flex-between">
                     <div class="info">
                         <div>
-                            <p>Digite a senha atual: </p>
-                            <p class="card-item-text-content">
-                                <div class="column-4">
-                                    <input type="text">
-                                </div>
-                            </p>
-                            <p>Digite a nova senha: </p>
-                            <p class="card-item-text-content">
-                                <div class="column-4">
-                                    <input type="text">
-                                </div>
-                            </p>
+                        	<form method="POST" action="/account/pwedit">
+	                            <p>Digite a senha atual: </p>
+	                            <p class="card-item-text-content">
+	                                <div class="column-4">
+	                                    <input type="text">
+	                                </div>
+	                            </p>
+	                            <p>Digite a nova senha: </p>
+	                            <p class="card-item-text-content">
+	                                <div class="column-4">
+	                                    <input type="text">
+	                                </div>
+	                            </p>
+	                            <input type="submit">
+	                        </form>
                         </div>
                     </div>
                 </div>

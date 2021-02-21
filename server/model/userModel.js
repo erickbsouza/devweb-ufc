@@ -82,7 +82,6 @@ exports.getUserByEmail = async (email, callback) => {
     return (await getUsers()).filter(user => user.email === email)[0];
 }
 
-//change implementation
 exports.saveUser = async (user, callback) => {
     if (!(await this.getUserById(user.id))) {
         await addUserToCollection(user);

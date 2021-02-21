@@ -105,3 +105,9 @@ function createOccurrenceNode(occurrence)
 
     return cardDiv;
 }
+
+window.onload = function () {
+    updateChangeThemeButton();
+    updateFontCss();
+    loadOccurrences();
+}

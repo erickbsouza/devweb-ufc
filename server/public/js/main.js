@@ -85,3 +85,16 @@ function changeCSSById(cssFile, cssLinkId) {
 function changeCSSByObj(cssFile, cssLinkObj) {
     cssLinkObj.setAttribute('href', cssFile);
 }
+
+function dateTimeFormat(date)
+{
+    date = new Date(date);
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    var hour = date.getHours();
+    var minute = date.getMinutes();
+
+    return `${day}/${month}/${year} ${hour}:${minute}`;
+}

@@ -18,8 +18,12 @@ dbClient.connect(err => {
             collection.insertMany([
                 {
                     id: 1,
+                    foto:'/images/profile-picture.png',
                     name: 'Alan',
+                    surname: 'Maia',
                     email: 'maiaalan@alu.ufc.br',
+                    telefone:'85987678933',
+                    nusuario:'alanmaia',
                     hash: 'senha',
                     profile: profiles.visitor,
                     token: null,
@@ -27,10 +31,14 @@ dbClient.connect(err => {
                 },
                 {
                     id: 2,
+                    foto:'/images/profile-picture.png',
                     name: 'João',
+                    surname: 'César',
                     email: 'joão@alu.ufc.br',
-                    profile: profiles.creator,
+                    telefone:'8598245333',
+                    nusuario:'joaocesar',
                     hash: 'senha',
+                    profile: profiles.creator,
                     token: null,
                     expirationDate: null
                 },

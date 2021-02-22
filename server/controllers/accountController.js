@@ -42,10 +42,15 @@ router.get('/perfil', async (req, res) => {
 
 })
 
-router.get('/editar-perfil', async (req, res) => {
+router.post('/edit-user', async (req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
         user = await accountService.getAuthenticatedUser(token);
+        user.email = req.body.email;
+        user.name = req.body.name;
+        user.surname = req.body.surname;
+        user.nusuario = req.body.nusuario;
+        user.telefone = req.body.telefone;
         if (user!=null){
             res.customRender('user/perfil-user', user, {user:user});
         }

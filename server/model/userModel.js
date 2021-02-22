@@ -18,7 +18,7 @@ dbClient.connect(err => {
             collection.insertMany([
                 {
                     id: 1,
-                    foto:'/images/profile-picture.png',
+                    foto:'/images/user1-image.jpg',
                     name: 'Alan',
                     surname: 'Maia',
                     email: 'maiaalan@alu.ufc.br',

@@ -177,9 +177,9 @@ input[type=text],
 input[type=date],
 input[type=time] {
     box-sizing: border-box;
-    border: 2px solid #ccc;
+    border: 2px solid rgb(145, 144, 144);
     border-radius: 4px;
-    background-color: #f8f8f8;
+    background-color: #666565;
     transition: width 0.4s ease-in-out;
 }
 

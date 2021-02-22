@@ -3,6 +3,7 @@ function loadOccurrences(filter)
     fetch("/occurrence")
       .then(response => {
         response.json().then( (data) => {
+            document.getElementById("loading-occurrence-message").remove();
             mountOccurrenceHtml(data);
             });
       }).catch(err => {
@@ -69,7 +70,7 @@ function createOccurrenceNode(occurrence)
     severityBarContainerDiv.className = "severity-progressbar-container";
 
     var severityBarContentDiv = document.createElement("div");
-    severityBarContainerDiv.className = `severity-progressbar-content-${occurrence.severity}`;
+    severityBarContentDiv.className = `severity-progressbar-content-${occurrence.severity}`;
 
     var blankDiv2 = document.createElement("div");
     var mapDiv = document.createElement("div");

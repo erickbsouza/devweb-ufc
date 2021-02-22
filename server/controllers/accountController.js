@@ -1,11 +1,12 @@
 const { response } = require('express');
+const md5 = require('md5')
 const express = require('express')
 const accountService = require('../services/accountService')
 const router = express.Router();
 
 router.post('/login', async (req, res) => {
     if (req.body) {
-        user = await accountService.authenticateUser(req.body.email, req.body.password);
+        user = await accountService.authenticateUser(req.body.email, md5(req.body.password));
         if (user) {
             res.cookie('token', user.token, {maxAge: user.expirationDate - Date.now()});
             res.redirect('/');

@@ -1,5 +1,6 @@
 const userCollection = 'users';
 const { response } = require('express');
+const md5 = require('md5');
 const mongo = require('./mongoClient');
 const dbClient = mongo.client;
 const dbName = mongo.dbName;
@@ -17,31 +18,44 @@ dbClient.connect(err => {
         if (result == 0) {
             collection.insertMany([
                 {
-                    id: 1,
+                    _id: 1,
                     foto:'/images/user1-image.jpg',
                     name: 'Alan',
                     surname: 'Maia',
                     email: 'maiaalan@alu.ufc.br',
                     telefone:'85987678933',
                     nusuario:'alanmaia',
-                    hash: 'senha',
+                    hash: md5('senha'),
                     profile: profiles.visitor,
                     token: null,
                     expirationDate: null
                 },
                 {
-                    id: 2,
+                    _id: 2,
                     foto:'/images/profile-picture.png',
                     name: 'João',
                     surname: 'César',
                     email: 'joão@alu.ufc.br',
                     telefone:'8598245333',
                     nusuario:'joaocesar',
-                    hash: 'senha',
+                    hash: md5('senha'),
                     profile: profiles.creator,
                     token: null,
                     expirationDate: null
                 },
+                {
+                    _id: 3,
+                    foto:'/images/profile-picture.png',
+                    name: 'Leonardo',
+                    surname: 'DiCaprio',
+                    email: 'leo@alu.ufc.br',
+                    telefone:'8598245333',
+                    nusuario:'leocaprio',
+                    hash: md5('senha'),
+                    profile: profiles.reviewer,
+                    token: null,
+                    expirationDate: null
+                }
             ], (err) => {
                 if (err != null) {
                     console.log(err.message);

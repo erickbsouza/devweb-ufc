@@ -69,6 +69,7 @@ header {
     flex-wrap: wrap;
     width: 100%;
     background-color: #697a7a;
+    min-height: 1000px;
 }
 
 .card-body {

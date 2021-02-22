@@ -136,14 +136,6 @@
     color: #e2654f;
 }
 
-.severity-progressbar-container {
-    background-color: rgb(192, 181, 181);
-    border-radius: 20px;
-    width: 300px;
-    height: 8px;
-    margin-top: 2px;
-}
-
 .severity-progressbar-content-low {
     background-color: green;
     width: 33%;
@@ -193,3 +185,11 @@
   header > a {
       text-decoration: none;
   }
+
+.severity-progressbar-container {
+    background-color: rgb(192, 181, 181);
+    border-radius: 20px;
+    width: 300px;
+    height: 8px;
+    margin-top: 2px;
+}

@@ -2,7 +2,14 @@ const userModel = require('../model/userModel');
 
 //implement
 generateToken = (seed) => {
-    return '1234';
+    var length = seed.length;
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
 }
 
 // Autentica o usuário e retorna ele autenticado.

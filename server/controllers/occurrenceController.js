@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 const occurrenceCollection = require('../model/occurrenceModel')
 const accountService = require('../services/accountService')
+const occurrenceService = require('../services/occurrenceService')
 
 router.get('/', async(req, res) => {
     setTimeout(async () => {
@@ -21,6 +22,25 @@ router.get('/create', async(req, res) => {
         token = req.query.token ? req.query.token : req.cookies.token;
         user = await accountService.getAuthenticatedUser(token);
         if (user) {
+            res.customRender('novaocorrencia/index', user, {});
+        } else {
+            res.customRender('home/index', null, {})
+        }
+    } else if (req.query.loginFailed == 1) {
+        res.customRender('home/index', null, { loginFailed: 1 });
+    } else {
+        res.customRender('home/index', null, {})
+    }
+})
+
+router.post('/create2', async(req, res) => {
+    if (req.query.token || req.cookies.token) {
+        token = req.query.token ? req.query.token : req.cookies.token;
+        user = await accountService.getAuthenticatedUser(token);
+        occurrence = req.body;
+       
+        if (user && user.profile=="creator" || user.profile =="reviewer") {
+            await occurrenceService.addOccurrence(occurrence, user._id)
             res.customRender('novaocorrencia/index', user, {});
         } else {
             res.customRender('home/index', null, {})

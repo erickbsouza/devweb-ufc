@@ -18,3 +18,10 @@ exports.setOccurrenceAsVisible = async (occurrenceId) => {
 exports.deleteOccurrence = async (occurrenceId) => {
     await occurrenceModel.deleteOccurrence(occurrenceId);
 }
+
+exports.addOccurrence = async (occurrence, userId) => {
+    occurrence.userId = userId;
+    occurrence.visibility = 0;
+    occurrence.creationDate = Date.now();
+    await occurrenceModel.addOccurrence(occurrence);
+}

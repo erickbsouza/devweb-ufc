@@ -163,6 +163,13 @@ updateOccurrenceInCollection = async (occurrence) => {
     });
 }
 
+addOccurrenceInCollection = async (occurrence) => {
+    const collection = getCollection();
+    await collection.insertOne(occurrence);
+}
+
+
+
 deleteOccurrenceInCollection = async (occurrenceId) => {
     const collection = getCollection();
     await collection.deleteOne({_id: occurrenceId});
@@ -186,4 +193,7 @@ exports.updateOccurrence = async(occurrence) => {
 
 exports.deleteOccurrence = async(occurrenceId) => {
     await deleteOccurrenceInCollection(occurrenceId);
+}
+exports.addOccurrence = async(occurrence) => {
+    await addOccurrenceInCollection(occurrence);
 }

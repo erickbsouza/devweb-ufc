@@ -1,0 +1,119 @@
+<link class="theme-dependent" rel='stylesheet' type='text/css' media='screen' href='/css/profile.css' />
+<div class="card-container">       
+    <div id="edit" class="column-info">
+        <div class="column-4">
+            <div class="card">
+                <div class="card-header flex-between">
+                    <h1 class="card-title">Visibilidade e Exclusão:</h1>
+                </div>
+                <div class="card-body flex-between">
+                    <div class="info">
+                        <div>
+                            <% if (occurrence.visibility == 1) {%>
+                                <p class="card-item-text-content">
+                                    <p class="card-item-text-content">
+                                        <a href="/occurrence/toggle-visibility/<%- occurrence._id%>"> Tornar não visível</a>
+                                    </p>
+                                </p>
+                            <% } else {%>
+                                <p class="card-item-text-content">
+                                    <p class="card-item-text-content">
+                                        <a href="/occurrence/toggle-visibility/<%- occurrence._id%>">Tornar visível</a>
+                                    </p>
+                                </p>
+                            <%}%>
+                        </div>
+                        <div>
+                            <p class="card-item-text-content">
+                                <a href="/occurrence/delete/<%- occurrence._id%>"> Excluir</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>       
+    <div id="edit" class="column-info">
+        <div class="column-4">
+            <div class="card">
+                <div class="card-header flex-between">
+                    <h1 class="card-title">Editar ocorrência:</h1>
+                </div>
+                <div class="card-body flex-between">
+                    <div class="info">
+                        <div>
+                            <form method="POST" action="/occurrence/edit-occurrence/<%- occurrence._id%>">
+                                <p>Descrição da ocorrência: </p>
+                                <p class="card-item-text-content">
+                                    <div class="column-4">
+                                        <textarea rows="10" name="description"><%- occurrence.description%></textarea>                                
+                                    </div>
+                                </p>
+
+                                <p>Tipo de ocorrência: </p>
+                                <br>
+                                <p class="card-item-text-content">
+                                    <div>
+                                        <input type="radio" id="policial" name="type" value="local_police" <%- occurrence.type == 'local_police' ? 'checked' : ''%>>
+                                        <label for="low">Policial</label><br>
+                                        <input type="radio" id="bombeiros" name="type" value="local_fire_department" <%- occurrence.type == 'local_fire_department' ? 'checked' : ''%>>
+                                        <label for="medium">Bombeiros</label><br>
+                                        <input type="radio" id="hospital" name="type" value="local_hospital" <%- occurrence.type == 'local_hospital' ? 'checked' : ''%>>
+                                        <label for="other">Hospitalar</label>
+                                        <br>
+                                        <br>
+
+                                    </div>
+
+                                <p>Data da ocorrência e horário da ocorrência: </p>
+                                <p class="card-item-text-content">
+                                    <div class="column-4">
+                                        <input type="datetime-local" id="date" name="dateTime" value="<%- occurrence.dateTime%>">
+
+                                    </div>
+                                </p>
+
+
+                                <p>Lugar da ocorrência: </p>
+                                <p class="card-item-text-content">
+                                    <div class="column-4">
+                                        
+                                        <label for="endereco">Endereço:</label>
+                                        <input type="text" id="endereco" name="descricao" value="<%- occurrence.location.descricao%>"><br>
+
+                                        <label for="latitude">Latitude:</label>
+                                        <input type="text" id="latitude" name="latitude" value="<%- occurrence.location.latitude%>"><br>
+
+                                        <label for="longitude">Longitude:</label>
+                                        <input type="text" id="longitude" name="longitude" value="<%- occurrence.location.longitude%>">
+                                    </div>
+                                </p>
+
+                                <p>Gravidade: </p>
+                                <br>
+                                <p class="card-item-text-content">
+                                    <div>
+                                        <input type="radio" id="low" name="severity" value="low" <%- occurrence.severity == 'low' ? 'checked' : ''%>>
+                                        <label for="low">Pequena</label><br>
+                                        <input type="radio" id="medium" name="severity" value="medium" <%- occurrence.severity == 'medium' ? 'checked' : ''%>>
+                                        <label for="medium">Média</label><br>
+                                        <input type="radio" id="high" name="severity" value="high" <%- occurrence.severity == 'high' ? 'checked' : ''%>>
+                                        <label for="other">Grande</label>
+                                        <br>
+
+                                    </div>
+                                </p>
+                                <br>
+                                <input type="submit">
+                            </form>
+
+
+
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

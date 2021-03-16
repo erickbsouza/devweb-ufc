@@ -2,7 +2,14 @@ const userModel = require('../model/userModel');
 
 //implement
 generateToken = (seed) => {
-    return '1234';
+    var length = seed.length;
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
 }
 
 // Autentica o usuário e retorna ele autenticado.
@@ -24,6 +31,23 @@ exports.authenticateUser = async (email, hash) => {
 
 exports.getAuthenticatedUser = async (token) => {
     return await userModel.getUserByToken(token);
+}
+
+
+exports.newUser = async (user) => {
+    await userModel.insertNewUser(user);
+}
+
+exports.editUser = async (user) => {
+    await userModel.saveUser(user);
+}
+
+exports.getAuthenticatedReviewerUser = async (token) => {
+    var user = await userModel.getUserByToken(token);
+    if (user.profile == 'reviewer')
+        return user;
+    else
+        return null;
 }
 
 exports.endSession = async (token) => {

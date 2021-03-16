@@ -1,4 +1,4 @@
-<link id="profile-css" rel='stylesheet' type='text/css' media='screen' href='/css/profile.css' />
+<link class="theme-dependent" rel='stylesheet' type='text/css' media='screen' href='/css/profile.css' />
 <div class="card-container">
     <div id="personal" class="column-info">
         <div class="column-4">
@@ -12,49 +12,48 @@
                             <p class="card-item-text-topic">Foto de Perfil </p>
                             <div class="pr">
                                 <img class="p-image" src="/images/profile-picture.png" alt="Foto de Perfil">
+                                <img class="p-image" src="<%- pageData.user.foto %>" alt="Foto do Usuário">
                             </div>
-
                             <div class="hr"><hr></div>
+                           
+                            <form method="POST" action="/account/edit-user">
+                                <p>E-mail: </p>
+                                <p class="card-item-text-content">
+                                    <div class="column-4">
+                                        <input name="email" type="text" value="<%- pageData.user.email %>">
+                                    </div>
+                                </p>
+    
+                                <p>Nome: </p>
+                                <p class="card-item-text-content">
+                                    <div class="column-4">
+                                        <input name="name" type="text" value="<%- pageData.user.name %>">
+                                    </div>
+                                </p>
+    
+                                <p>Sobrenome: </p>
+                                <p class="card-item-text-content">
+                                    <div class="column-4">
+                                        <input name="surname" type="text" value="<%- pageData.user.surname %>">
+                                    </div>
+                                </p>
+    
+                                <p>Nome de Usuário: </p>
+                                <p class="card-item-text-content">
+                                    <div class="column-4">
+                                        <input name="nusuario" type="text" value="<%- pageData.user.nusuario %>">
+                                    </div>
+                                </p>
+    
+                                <p>Número do Telefone: </p>
+                                <p class="card-item-text-content">
+                                    <div class="column-4">
+                                        <input name="telefone" type="text" value="<%- pageData.user.telefone %>">
+                                    </div>
+                                </p>
 
-                            <form method="POST" action="/account/salvar-alteracoes">
-		                        <p>E-mail: </p>
-		                        <p class="card-item-text-content">
-		                            <div class="column-4">
-		                                <input type="text" name="email">
-		                            </div>
-		                        </p>
-
-		                        <p>Nome: </p>
-		                        <p class="card-item-text-content">
-		                            <div class="column-4">
-		                                <input type="text" name="name">
-		                            </div>
-		                        </p>
-
-
-		                        <p>Nome de Usuário: </p>
-		                        <p class="card-item-text-content">
-		                            <div class="column-4">
-		                                <input type="text" name="username">
-		                            </div>
-		                        </p>
-
-		                        <p>Número do Telefone: </p>
-		                        <p class="card-item-text-content">
-		                            <div class="column-4">
-		                                <input type="text" name="number">
-		                            </div>
-		                        </p>
-
-		                        <p>Descrição: </p>
-		                        <p class="card-item-text-content">
-		                            <div class="column-4">
-		                                <input type="text" class="textarea" name="description">
-		                            </div>
-		                        </p>
-		                        <input type="submit">
-		                    </form>
-                            </p>
+                                <input type="submit">
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -70,21 +69,21 @@
                 <div class="card-body flex-between">
                     <div class="info">
                         <div>
-                        	<form method="POST" action="/account/pwedit">
-	                            <p>Digite a senha atual: </p>
-	                            <p class="card-item-text-content">
-	                                <div class="column-4">
-	                                    <input type="text">
-	                                </div>
-	                            </p>
-	                            <p>Digite a nova senha: </p>
-	                            <p class="card-item-text-content">
-	                                <div class="column-4">
-	                                    <input type="text">
-	                                </div>
-	                            </p>
-	                            <input type="submit">
-	                        </form>
+                            <form method="POST" action="/account/edit-pw">
+                                <p>Digite a senha atual: </p>
+                                <p class="card-item-text-content">
+                                    <div class="column-4">
+                                        <input name="senha" type="password">
+                                    </div>
+                                </p>
+                                <p>Digite a nova senha: </p>
+                                <p class="card-item-text-content">
+                                    <div class="column-4">
+                                        <input name="novaSenha" type="password">
+                                    </div>
+                                </p>
+                                <input type="submit">
+                            </form>
                         </div>
                     </div>
                 </div>

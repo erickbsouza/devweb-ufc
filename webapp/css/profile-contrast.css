@@ -177,9 +177,9 @@ input[type=text],
 input[type=date],
 input[type=time] {
     box-sizing: border-box;
-    border: 2px solid rgb(145, 144, 144);
+    border: 2px solid #ccc;
     border-radius: 4px;
-    background-color: #666565;
+    background-color: #f8f8f8;
     transition: width 0.4s ease-in-out;
 }
 
@@ -221,20 +221,20 @@ input[type=reset] {
     float: left;
     overflow: hidden;
   }
-  
+
   /* Dropdown content (hidden by default) */
   .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #666565;
+    background: #E6FAFB;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
   }
-  
+
   /* Dropdown content (hidden by default) */
   .dropdown-content a{
     float: none;
-    color: #f8f8f8;
+    color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;

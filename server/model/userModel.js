@@ -1,5 +1,6 @@
 const userCollection = 'users';
 const { response } = require('express');
+const md5 = require('md5');
 const mongo = require('./mongoClient');
 const dbClient = mongo.client;
 const dbName = mongo.dbName;
@@ -17,23 +18,44 @@ dbClient.connect(err => {
         if (result == 0) {
             collection.insertMany([
                 {
-                    id: 1,
+                    _id: 1,
+                    foto:'/images/user1-image.jpg',
                     name: 'Alan',
+                    surname: 'Maia',
                     email: 'maiaalan@alu.ufc.br',
-                    hash: 'senha',
+                    telefone:'85987678933',
+                    nusuario:'alanmaia',
+                    hash: md5('senha'),
                     profile: profiles.visitor,
                     token: null,
                     expirationDate: null
                 },
                 {
-                    id: 2,
+                    _id: 2,
+                    foto:'/images/profile-picture.png',
                     name: 'João',
+                    surname: 'César',
                     email: 'joão@alu.ufc.br',
+                    telefone:'8598245333',
+                    nusuario:'joaocesar',
+                    hash: md5('senha'),
                     profile: profiles.creator,
-                    hash: 'senha',
                     token: null,
                     expirationDate: null
                 },
+                {
+                    _id: 3,
+                    foto:'/images/profile-picture.png',
+                    name: 'Leonardo',
+                    surname: 'DiCaprio',
+                    email: 'leo@alu.ufc.br',
+                    telefone:'8598245333',
+                    nusuario:'leocaprio',
+                    hash: md5('senha'),
+                    profile: profiles.reviewer,
+                    token: null,
+                    expirationDate: null
+                }
             ], (err) => {
                 if (err != null) {
                     console.log(err.message);
@@ -60,8 +82,11 @@ updateUserInCollection = async (user) => {
     const collection = dbClient.db(dbName).collection(userCollection);
     await collection.updateOne({id: user.id}, {
         $set: {
-                name: user.name, 
-                email: user.email, 
+                name: user.name,
+                surname: user.surname, 
+                email: user.email,
+                nusuario: user.nusuario,
+                telefone: user.telefone, 
                 hash: user.hash, 
                 profile: user.profile, 
                 token: user.token, 
@@ -78,11 +103,18 @@ exports.getUserById = async (id, callback) => {
     return (await getUsers()).filter(user => user.id === id)[0];
 }
 
+exports.queryUsers = async (query) => {
+    return await getUsers(query);
+}
+
 exports.getUserByEmail = async (email, callback) => {
     return (await getUsers()).filter(user => user.email === email)[0];
 }
 
-//change implementation
+exports.insertNewUser = async (user, callback) => {
+    await addUserToCollection(user);
+};
+
 exports.saveUser = async (user, callback) => {
     if (!(await this.getUserById(user.id))) {
         await addUserToCollection(user);

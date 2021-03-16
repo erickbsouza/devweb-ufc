@@ -170,8 +170,6 @@ addOccurrenceInCollection = async (occurrence) => {
     await collection.insertOne(occurrence);
 }
 
-
-
 deleteOccurrenceInCollection = async (occurrenceId) => {
     const collection = getCollection();
     await collection.deleteOne({_id: occurrenceId});

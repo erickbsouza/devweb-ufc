@@ -33,6 +33,14 @@ exports.getAuthenticatedUser = async (token) => {
     return await userModel.getUserByToken(token);
 }
 
+exports.newUser = async (user) => {
+    await userModel.insertNewUser(user);
+}
+
+exports.editUser = async (user) => {
+    await userModel.saveUser(user);
+}
+
 exports.endSession = async (token) => {
     user = await userModel.getUserByToken(token);
     if (user) {

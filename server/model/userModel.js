@@ -82,8 +82,11 @@ updateUserInCollection = async (user) => {
     const collection = dbClient.db(dbName).collection(userCollection);
     await collection.updateOne({id: user.id}, {
         $set: {
-                name: user.name, 
-                email: user.email, 
+                name: user.name,
+                surname: user.surname, 
+                email: user.email,
+                nusuario: user.nusuario,
+                telefone: user.telefone, 
                 hash: user.hash, 
                 profile: user.profile, 
                 token: user.token, 
@@ -103,6 +106,10 @@ exports.getUserById = async (id, callback) => {
 exports.getUserByEmail = async (email, callback) => {
     return (await getUsers()).filter(user => user.email === email)[0];
 }
+
+exports.insertNewUser = async (user, callback) => {
+    await addUserToCollection(user);
+};
 
 exports.saveUser = async (user, callback) => {
     if (!(await this.getUserById(user.id))) {

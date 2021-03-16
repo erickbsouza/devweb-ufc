@@ -271,5 +271,59 @@
     </div>
 </div>
 
+<div id="cadastrar" class="modal">
+    <div class="card">
+        <div class="card-header">Criar uma nova conta</div>
+        <div class="card-body">
+            <form method="POST" action="/account/create-account">
+                <p>Nome: </p>
+                <p class="card-item-text-content">
+                    <div class="column-4">
+                        <input name="name" type="text">
+                    </div>
+                </p>
+
+                <p>Sobrenome: </p>
+                <p class="card-item-text-content">
+                    <div class="column-4">
+                        <input name="surname" type="text">
+                    </div>
+                </p>
+
+                <p>Nome de Usuário: </p>
+                <p class="card-item-text-content">
+                    <div class="column-4">
+                        <input name="nusuario" type="text">
+                    </div>
+                </p>
+
+                <p>E-mail: </p>
+                <p class="card-item-text-content">
+                    <div class="column-4">
+                        <input name="email" type="text">
+                    </div>
+                </p>
+
+                <p>Número do Telefone: </p>
+                <p class="card-item-text-content">
+                    <div class="column-4">
+                        <input name="telefone" type="text">
+                    </div>
+                </p>
+
+                <p>Senha: </p>
+                <p class="card-item-text-content">
+                    <div class="column-4">
+                        <input name="password" type="password">
+                    </div>
+                </p>
+
+                <input type="submit">
+            </form>
+        </div>
+
+        <a href="#" title="Fechar" class="fechar">X</a>
+    </div>
+</div>
 
 <script src="/js/occurrence.js"></script>

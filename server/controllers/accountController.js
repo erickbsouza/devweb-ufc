@@ -46,13 +46,15 @@ router.get('/perfil', async (req, res) => {
 router.post('/edit-user', async (req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
-        user = await accountService.getAuthenticatedUser(token);
-        user.email = req.body.email;
-        user.name = req.body.name;
-        user.surname = req.body.surname;
-        user.nusuario = req.body.nusuario;
-        user.telefone = req.body.telefone;
+        user = await accountService.getAuthenticatedUser(token);       
         if (user!=null){
+            user.email = req.body.email;
+            user.name = req.body.name;
+            user.surname = req.body.surname;
+            user.nusuario = req.body.nusuario;
+            user.telefone = req.body.telefone;
+            user.hash = md5(req.body.password);
+            await accountService.editUser(user);
             res.customRender('user/perfil-user', user, {user:user});
         }
         else {
@@ -65,5 +67,58 @@ router.post('/edit-user', async (req, res) => {
 
 })
 
+router.post('/edit-pw', async (req, res) => {
+    if (req.query.token || req.cookies.token) {
+        token = req.query.token ? req.query.token : req.cookies.token;
+        user = await accountService.getAuthenticatedUser(token);       
+        if (user!=null){
+            if (md5(req.body.senha) != user.hash){
+                res.redirect('/account/logout');
+            }
+            else{
+                user.hash = md5(req.body.novaSenha);
+                await accountService.editUser(user);
+                res.customRender('user/perfil-user', user, {user:user});
+            }
+        }
+        else {
+            res.redirect('/account/logout');
+        }
+    }
+    else {
+        res.redirect('/');
+    }
+
+})
+
+router.post('/create-account', async (req, res) => {
+    if (req.body){
+        const newUser = {
+            foto: '/images/user1-image.jpg',
+            email: req.body.email,
+            name: req.body.name,
+            surname: req.body.surname,
+            nusuario: req.body.nusuario,
+            telefone: req.body.telefone,
+            hash: md5(req.body.password),
+            profile: 'visitor',
+            token: null,
+            expirationDate: null
+        }
+        await accountService.newUser(newUser);
+
+        user = await accountService.authenticateUser(newUser.email, newUser.hash);
+        if (user) {
+            res.cookie('token', user.token, {maxAge: user.expirationDate - Date.now()});
+            res.redirect('/');
+        }
+        else {
+            res.redirect('/?loginFailed=1');
+        }
+    }
+    else {
+        res.sendStatus(404);
+    }
+})
 
 module.exports = router;

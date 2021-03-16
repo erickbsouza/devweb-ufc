@@ -68,18 +68,21 @@
                 <div class="card-body flex-between">
                     <div class="info">
                         <div>
-                            <p>Digite a senha atual: </p>
-                            <p class="card-item-text-content">
-                                <div class="column-4">
-                                    <input type="text">
-                                </div>
-                            </p>
-                            <p>Digite a nova senha: </p>
-                            <p class="card-item-text-content">
-                                <div class="column-4">
-                                    <input type="text">
-                                </div>
-                            </p>
+                            <form method="POST" action="/account/edit-pw">
+                                <p>Digite a senha atual: </p>
+                                <p class="card-item-text-content">
+                                    <div class="column-4">
+                                        <input name="senha" type="password">
+                                    </div>
+                                </p>
+                                <p>Digite a nova senha: </p>
+                                <p class="card-item-text-content">
+                                    <div class="column-4">
+                                        <input name="novaSenha" type="password">
+                                    </div>
+                                </p>
+                                <input type="submit">
+                            </form>
                         </div>
                     </div>
                 </div>

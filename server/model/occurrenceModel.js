@@ -165,8 +165,8 @@ updateOccurrenceInCollection = async (occurrence) => {
 
 addOccurrenceInCollection = async (occurrence) => {
     const collection = getCollection();
-    lastid = await collection.find().sort({_id:-1}).limit(1)._id;
-    occurrence._id=lastid+1;
+    lastid = (await collection.find().sort({_id:-1}).limit(1).toArray())[0]._id;
+    occurrence._id = lastid+1;
     await collection.insertOne(occurrence);
 }
 

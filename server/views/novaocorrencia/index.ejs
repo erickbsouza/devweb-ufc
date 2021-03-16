@@ -1,4 +1,4 @@
-<link class="theme-dependent" rel='stylesheet' type='text/css' media='screen' href='/css/main.css' />
+<link class="theme-dependent" rel='stylesheet' type='text/css' media='screen' href='/css/profile.css' />
 <div class="card-container">       
     <div id="password" class="column-info">
         <div class="column-4">
@@ -13,13 +13,13 @@
                                 <p>Título da ocorrência: </p>
                                 <p class="card-item-text-content">
                                     <div class="column-4">
-                                        <input type="text">
+                                        <input type="text" name="title">
                                     </div>
                                 </p>
                                 <p>Descrição da ocorrência: </p>
                                 <p class="card-item-text-content">
                                     <div class="column-4">
-                                        <textarea rows="10"></textarea>                                </div>
+                                        <textarea rows="10" name="description"></textarea>                                </div>
                                 </p>
 
                                 <p>Tipo de ocorrência: </p>
@@ -37,19 +37,14 @@
 
                                     </div>
 
-                                <p>Data da ocorrência: </p>
+                                <p>Data da ocorrência e horário da ocorrência: </p>
                                 <p class="card-item-text-content">
                                     <div class="column-4">
-                                        <input type="date" id="data">
+                                        <input type="datetime-local" id="date" name="dateTime">
+
                                     </div>
                                 </p>
 
-                                <p>Horário da ocorrência: </p>
-                                <p class="card-item-text-content">
-                                    <div class="column-4">
-                                        <input type="time" id="horario">
-                                    </div>
-                                </p>
 
                                 <p>Lugar da ocorrência: </p>
                                 <p class="card-item-text-content">

@@ -37,7 +37,15 @@ router.post('/create2', async(req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
         user = await accountService.getAuthenticatedUser(token);
-        occurrence = req.body;
+        occurrence = {
+            title: req.body.title,
+            dateTime: req.body.dateTime,
+            description: req.body.description,
+            location: { latitude: req.body.latitude, longitude:req.body.longitude, descricao:req.body.descricao },
+            type: req.body.type,
+            severity: req.body.severity,
+            status: req.body.status,
+        };
        
         if (user && user.profile=="creator" || user.profile =="reviewer") {
             await occurrenceService.addOccurrence(occurrence, user._id)

@@ -141,6 +141,40 @@ dbClient.connect(err => {
 });
 //end seed
 
+function getCollection() {
+    return dbClient.db(dbName).collection(occurrenceCollection);
+}
+
+updateOccurrenceInCollection = async (occurrence) => {
+    const collection = getCollection();
+    await collection.updateOne({_id: occurrence._id}, {
+        $set: {
+            title: occurrence.title,
+            dateTime: occurrence.dateTime,
+            description: occurrence.description,
+            location: occurrence.location,
+            type: occurrence.type,
+            severity: occurrence.severity,
+            status: occurrence.status,
+            visibility: occurrence.visibility,
+            userId: occurrence.userId,
+            creationDate: occurrence.creationDate
+        }
+    });
+}
+
+addOccurrenceInCollection = async (occurrence) => {
+    const collection = getCollection();
+    lastid = (await collection.find().sort({_id:-1}).limit(1).toArray())[0]._id;
+    occurrence._id = lastid+1;
+    await collection.insertOne(occurrence);
+}
+
+deleteOccurrenceInCollection = async (occurrenceId) => {
+    const collection = getCollection();
+    await collection.deleteOne({_id: occurrenceId});
+}
+
 exports.getOccurrences = async(query) => {
     var occurrences = [];
     const collection = dbClient.db(dbName).collection(occurrenceCollection);
@@ -151,4 +185,15 @@ exports.getOccurrences = async(query) => {
 
 exports.getOccurrencesBySeverity = async(severity, callback) => {
     return (await getOccurrences()).filter(occorrence => occorrence.severity === severity)[0];
+}
+
+exports.updateOccurrence = async(occurrence) => {
+    await updateOccurrenceInCollection(occurrence);
+}
+
+exports.deleteOccurrence = async(occurrenceId) => {
+    await deleteOccurrenceInCollection(occurrenceId);
+}
+exports.addOccurrence = async(occurrence) => {
+    await addOccurrenceInCollection(occurrence);
 }

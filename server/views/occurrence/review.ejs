@@ -1,0 +1,33 @@
+<link class="theme-dependent" rel='stylesheet' type='text/css' media='screen' href='/css/profile.css' />
+<div class="card-container">       
+    <div id="password" class="column-info">
+        <div class="column-4">
+            <div class="card">
+                <div class="card-header flex-between">
+                    <h1 class="card-title">Revisar ocorrência:</h1>
+                </div>
+                <div class="card-body flex-between">
+                    <div class="info">
+                        <div>
+                            <form method="GET" action="/occurrence/edit-occurrence">
+                                <div class="column-4">
+                                    <label for="occurrences">Ocorrências</label>
+                                    <select id="occurrences" name="occurrenceId">
+                                        <option value="-1">-</option>
+                                        <%for (i = 0; i < occurrences.length; ++i)  {%>
+                                            <option value="<%-occurrences[i]._id%>">
+                                                <%-`${occurrences[i].title}-${occurrences[i].userName}-${occurrences[i].visibility}`%>
+                                            </option>
+                                        <% }%>
+                                    </select>
+                                </div>
+                                <br>
+                                <input type="submit" value="Revisar">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

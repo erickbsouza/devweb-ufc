@@ -110,6 +110,8 @@ input[type=reset] {
     border-radius: 4px;
     background-color: #f8f8f8;
     resize: none;
+    height:200px; 
+    width: 600px
   }
 
   

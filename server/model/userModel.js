@@ -103,6 +103,10 @@ exports.getUserById = async (id, callback) => {
     return (await getUsers()).filter(user => user.id === id)[0];
 }
 
+exports.queryUsers = async (query) => {
+    return await getUsers(query);
+}
+
 exports.getUserByEmail = async (email, callback) => {
     return (await getUsers()).filter(user => user.email === email)[0];
 }

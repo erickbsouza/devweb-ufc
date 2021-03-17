@@ -1,8 +1,9 @@
 const { response } = require('express');
-const md5 = require('md5')
+const md5 = require('md5');
 const express = require('express')
-const accountService = require('../services/accountService')
+const accountService = require('../services/accountService');
 const router = express.Router();
+const multer = require('multer');
 
 router.post('/login', async(req, res) => {
     if (req.body) {
@@ -66,9 +67,41 @@ router.post('/edit-user', async(req, res) => {
         } else {
             res.redirect('/account/logout');
         }
-
     }
-    res.customRender('user/perfil-user.ejs', user, { user: user });
+    else {
+        res.customRender('user/perfil-user.ejs', user, {user: user});
+    }
+})
+
+// SET STORAGE
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './public/images/')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now() + '.png')
+    }
+  })
+  
+var uploadPhoto = multer({ storage: storage })
+
+router.post('/edit-user-photo', uploadPhoto.single('user-image'),async (req, res) => {
+    if (req.query.token || req.cookies.token) {
+        token = req.query.token ? req.query.token : req.cookies.token;
+        imagePath = `/upload-images/${req.file.filename}`
+        user = await accountService.getAuthenticatedUser(token);       
+        if (user!=null){
+            user.foto = imagePath;
+            await accountService.editUser(user);
+            res.customRender('user/perfil-user', user, {user:user});
+        }
+        else {
+            res.redirect('/account/logout');
+        }
+    }
+    else {
+        res.customRender('user/perfil-user.ejs', user, {user: user});
+    }
 })
 
 router.post('/edit-pw', async(req, res) => {

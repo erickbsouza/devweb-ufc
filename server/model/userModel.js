@@ -100,7 +100,8 @@ updateUserInCollection = async(user) => {
             hash: user.hash,
             profile: user.profile,
             token: user.token,
-            expirationDate: user.expirationDate
+            expirationDate: user.expirationDate,
+            foto: user.foto
         }
     });
 }

@@ -1,16 +1,3 @@
-function loadOccurrences(filter)
-{
-    fetch("/occurrence")
-      .then(response => {
-        response.json().then( (data) => {
-            document.getElementById("loading-occurrence-message").remove();
-            mountOccurrenceHtml(data);
-            });
-      }).catch(err => {
-        console.error('Erro ao obter ocorrências', err);
-        });
-}
-
 function mountOccurrenceHtml(data)
 {
     var cardContainer = document.getElementById("card-container");
@@ -105,10 +92,4 @@ function createOccurrenceNode(occurrence)
     blankDiv2.appendChild(mapDescriptionP);
 
     return cardDiv;
-}
-
-window.onload = function () {
-    updateChangeThemeButton();
-    updateFontCss();
-    loadOccurrences();
 }

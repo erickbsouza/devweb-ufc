@@ -13,7 +13,7 @@ exports.editOccurrence = async (occurrenceEditJson) => {
 
 exports.toggleOccurrenceVisibility = async (occurrenceId) => {
     var occurrence = (await occurrenceModel.getOccurrences({_id: occurrenceId}))[0];
-    occurrence.visibility = occurrence.visibility % 1;
+    occurrence.visibility = occurrence.visibility == 1 ? 0 : 1;
     await occurrenceModel.updateOccurrence(occurrence);
 }
 
@@ -35,10 +35,13 @@ exports.getOccurrencesForReview = async () => {
     for (i = 0; i < occurrences.length; ++i)
     {
         occurrence = occurrences[i];
+        usuario = users.find((v, i) => v._id == occurrence.userId);
+        if (usuario == undefined)
+            usuario = {nusuario: 'desconhecido'};
         occurrencesForReview.push({
             _id: occurrence._id,
             title: occurrence.title,
-            userName: users.find((v, i) => v._id == occurrence.userId).nusuario,
+            userName: usuario.nusuario,
             visibility: occurrence.visibility == 1 ? 'Visivel' : 'Não visível'
         });
     }
@@ -47,4 +50,98 @@ exports.getOccurrencesForReview = async () => {
 
 exports.getOccurrenceById = async (occurrenceId) => {
     return  (await occurrenceModel.getOccurrences({_id: occurrenceId}))[0];
+}
+
+getTypeQuery = (searchJson) => {
+    typeQuery = []
+    if (searchJson.police === 'on')
+    {
+        typeQuery.push({type: 'local_police'});
+    }
+    if (searchJson.fireDepartament === 'on') 
+    {
+        typeQuery.push({type: 'local_fire_department'});
+    }
+    if (searchJson.hospital === 'on')
+    {
+        typeQuery.push({type: 'local_hospital'});
+    }
+    return typeQuery;
+}
+
+getStatusQuery = (searchJson) => {
+    statusQuery = []
+    if (searchJson.resolved === 'on')
+    {
+        statusQuery.push({status: 'resolved'});
+    }
+    if (searchJson.pending === 'on') 
+    {
+        statusQuery.push({status: 'hapenning'});
+    }
+    if (searchJson.finished === 'on')
+    {
+        statusQuery.push({status: 'finished'});
+    }
+    return statusQuery;
+}
+
+getSeverityQuery = (searchJson) => {
+    severityQuery = []
+    if (searchJson.low === 'on')
+    {
+        severityQuery.push({severity: 'low'});
+    }
+    if (searchJson.medium === 'on') 
+    {
+        severityQuery.push({severity: 'medium'});
+    }
+    if (searchJson.high === 'on')
+    {
+        severityQuery.push({severity: 'high'});
+    }
+    return severityQuery;
+}
+
+exports.searchOccurrences = async (searchJson) => {
+    typeQuery = getTypeQuery(searchJson);
+    statusQuery = getStatusQuery(searchJson);
+    severityQuery = getSeverityQuery(searchJson);
+    if (typeQuery.length == 0 || statusQuery == 0 || severityQuery == 0)
+        return [];
+    basicQuery = {
+        title: {$regex: `.*${searchJson.title}.*`},
+        "location.descricao": {$regex: `.*${searchJson.location}.*`},
+        visibility: 1
+    };
+    dateTimeS = new Date(searchJson.dateTimeStart).getTime();
+    if (!isNaN(dateTimeS))
+    {
+        if (basicQuery.dateTime == undefined)
+            basicQuery.dateTime = {};
+        basicQuery.dateTime.$gte = dateTimeS;
+    }
+    dateTimeE = new Date(searchJson.dateTimeEnd).getTime();
+    if (!isNaN(dateTimeE))
+    {
+        if (basicQuery.dateTime == undefined)
+            basicQuery.dateTime = {};
+        basicQuery.dateTime.$lte = dateTimeE;
+    }
+    query = {
+        $and: [
+            basicQuery,
+            {
+                $or: typeQuery
+            },
+            {
+                $or: statusQuery
+            },
+            {
+                $or: severityQuery
+            }
+        ]
+    };
+
+    return await occurrenceModel.getOccurrences(query);
 }

@@ -9,6 +9,7 @@ router.get('/', async(req, res) => {
         occurrence = await occurrenceCollection.getOccurrences();
         if (occurrence != null) {
             console.log(occurrence.length)
+            occurrence = occurrence.filter((v) => v.visibility == 1);
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify(occurrence));
         } else {
@@ -147,7 +148,15 @@ router.post('/edit-occurrence/:id', async(req, res) => {
     }
 })
 
-
+router.get('/search', async(req, res) => {
+    user = null;
+    if (req.query.token || req.cookies.token) {
+        token = req.query.token ? req.query.token : req.cookies.token;
+        user = await accountService.getAuthenticatedUser(token);
+    }
+    result = await occurrenceService.searchOccurrences(req.query);
+    res.customRender('home/searchedOccurrences', user, {searchedOccurrences: result})
+})
 
 
 module.exports = router;

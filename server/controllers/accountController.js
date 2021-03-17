@@ -39,6 +39,17 @@ router.get('/perfil', async(req, res) => {
 
 })
 
+
+router.post('/salvar-alteracoes', async(req, res) => {
+    const user = {
+        name: req.body.name,
+        username: req.body.username,
+        email: req.body.email,
+        number: req.body.number,
+        description: req.body.description
+    }
+})
+
 router.post('/edit-user', async(req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
@@ -55,10 +66,9 @@ router.post('/edit-user', async(req, res) => {
         } else {
             res.redirect('/account/logout');
         }
-    } else {
-        res.redirect('/');
-    }
 
+    }
+    res.customRender('user/perfil-user.ejs', user, { user: user });
 })
 
 router.post('/edit-pw', async(req, res) => {
@@ -79,7 +89,6 @@ router.post('/edit-pw', async(req, res) => {
     } else {
         res.redirect('/');
     }
-
 })
 
 router.post('/create-account', async(req, res) => {

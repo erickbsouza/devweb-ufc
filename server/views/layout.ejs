@@ -54,7 +54,76 @@
     </div>
 
     <main>
+<<<<<<< HEAD
         <%- include(page, pageData) %>
+=======
+        <%- include(page, pageData) %> 
+        <div id="buscar" class="modal">
+            <div class="card">
+                <div class="card-header flex-between">Buscar ocorrência</div>
+                <div class="card-body">
+                    <form method="GET" action="/occurrence/search">
+                        <label for="search1"> Título:</label>
+                        <div class="column-4">
+                            <input type="text" name='title'>
+                        </div>
+
+                        <label for="search2"> Data e horário:</label>
+                        <div class="column-4">
+                            <label for='dateTimeStart'>Início</label>
+                            <input type="dateTime-local" id='dateTimeStart' name='dateTimeStart'>
+                            <label for='dateTimeEnd'>Término</label>
+                            <input type="dateTime-local" id='dateTimeEnd' name='dateTimeEnd'>
+                        </div>
+
+                        <label for="search4"> Localização:</label>
+                        <div class="column-4">
+                            <input type="text" name='location'>
+                        </div>
+
+                        <label for="search4"> Tipos:</label>
+                        <div class="column-4">
+                            <label for="police">Policial</label>
+                            <input type="checkbox" id='police' name='police' checked>
+                            <label for="fireDepartament">Bombeiros</label>
+                            <input type="checkbox" id='fireDepartament' name='fireDepartament' checked>
+                            <label for="hospital">Ambulância</label>
+                            <input type="checkbox" id='hospital' name='hospital' checked>
+                        </div>
+
+                        <label for="search4"> Gravidade:</label>
+                        <div class="column-4">
+                            <label for="low">Baixa</label>
+                            <input type="checkbox" name='low' id='low' checked>
+                            <label for="medium">Média</label>
+                            <input type="checkbox" name='medium' id='medium' checked>
+                            <label for="high">Alta</label>
+                            <input type="checkbox" name='high' id='high' checked>
+                        </div>
+
+                        <label for="search4"> Estado:</label>
+                        <div class="column-4">
+                            <label for="pending">Pendente</label>
+                            <input type="checkbox" id='pending'  name='pending' checked>
+                            <label for="resolved">Resolvida</label>
+                            <input type="checkbox" id='resolved' name='resolved'>
+                            <label for="finished">Finalizada</label>
+                            <input type="checkbox" id='finished' name='finished'>
+                        </div>
+
+                        <!-- <label for="favoriteOnly"> Apenas favoritas:</label>
+                        <div class="column-4">
+                            <input type="checkbox" id='favoriteOnly' name='favoriteOnly'>
+                        </div> -->
+
+                        <input type="submit" value="Buscar">
+                    </form>
+                    
+                </div>
+                <a href="#fechar" title="Fechar" class="fechar">x</a>
+            </div>
+        </div>
+>>>>>>> 515b8176f8014a212b7a2db59a1583e860a330f9
     </main>
 
     <div class="footer">

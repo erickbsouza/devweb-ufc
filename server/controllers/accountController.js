@@ -4,50 +4,46 @@ const express = require('express')
 const accountService = require('../services/accountService')
 const router = express.Router();
 
-router.post('/login', async (req, res) => {
+router.post('/login', async(req, res) => {
     if (req.body) {
         user = await accountService.authenticateUser(req.body.email, md5(req.body.password));
         if (user) {
-            res.cookie('token', user.token, {maxAge: user.expirationDate - Date.now()});
+            res.cookie('token', user.token, { maxAge: user.expirationDate - Date.now() });
             res.redirect('/');
-        }
-        else {
+        } else {
             res.redirect('/?loginFailed=1');
         }
-    }
-    else {
+    } else {
         res.sendStatus(404);
     }
 })
 
-router.get('/logout', async (req, res) => {
+router.get('/logout', async(req, res) => {
     await accountService.endSession(req.cookies.token);
     res.clearCookie('token');
     res.redirect('/');
 })
 
-router.get('/perfil', async (req, res) => {
+router.get('/perfil', async(req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
         user = await accountService.getAuthenticatedUser(token);
-        if (user!=null){
-            res.customRender('user/perfil-user', user, {user:user});
-        }
-        else {
+        if (user != null) {
+            res.customRender('user/perfil-user', user, { user: user });
+        } else {
             res.redirect('/account/logout');
         }
-    }
-    else {
+    } else {
         res.redirect('/');
     }
 
 })
 
-router.post('/edit-user', async (req, res) => {
+router.post('/edit-user', async(req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
-        user = await accountService.getAuthenticatedUser(token);       
-        if (user!=null){
+        user = await accountService.getAuthenticatedUser(token);
+        if (user != null) {
             user.email = req.body.email;
             user.name = req.body.name;
             user.surname = req.body.surname;
@@ -55,44 +51,39 @@ router.post('/edit-user', async (req, res) => {
             user.telefone = req.body.telefone;
             user.hash = md5(req.body.password);
             await accountService.editUser(user);
-            res.customRender('user/perfil-user', user, {user:user});
-        }
-        else {
+            res.customRender('user/perfil-user', user, { user: user });
+        } else {
             res.redirect('/account/logout');
         }
-    }
-    else {
+    } else {
         res.redirect('/');
     }
 
 })
 
-router.post('/edit-pw', async (req, res) => {
+router.post('/edit-pw', async(req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
-        user = await accountService.getAuthenticatedUser(token);       
-        if (user!=null){
-            if (md5(req.body.senha) != user.hash){
+        user = await accountService.getAuthenticatedUser(token);
+        if (user != null) {
+            if (md5(req.body.senha) != user.hash) {
                 res.redirect('/account/logout');
-            }
-            else{
+            } else {
                 user.hash = md5(req.body.novaSenha);
                 await accountService.editUser(user);
-                res.customRender('user/perfil-user', user, {user:user});
+                res.customRender('user/perfil-user', user, { user: user });
             }
-        }
-        else {
+        } else {
             res.redirect('/account/logout');
         }
-    }
-    else {
+    } else {
         res.redirect('/');
     }
 
 })
 
-router.post('/create-account', async (req, res) => {
-    if (req.body){
+router.post('/create-account', async(req, res) => {
+    if (req.body) {
         const newUser = {
             foto: '/images/user1-image.jpg',
             email: req.body.email,
@@ -109,16 +100,33 @@ router.post('/create-account', async (req, res) => {
 
         user = await accountService.authenticateUser(newUser.email, newUser.hash);
         if (user) {
-            res.cookie('token', user.token, {maxAge: user.expirationDate - Date.now()});
+            res.cookie('token', user.token, { maxAge: user.expirationDate - Date.now() });
             res.redirect('/');
-        }
-        else {
+        } else {
             res.redirect('/?loginFailed=1');
         }
-    }
-    else {
+    } else {
         res.sendStatus(404);
     }
+})
+
+
+router.post('/delete-user', async(req, res) => {
+    if (req.query.token || req.cookies.token) {
+        token = req.query.token ? req.query.token : req.cookies.token;
+        user = await accountService.getAuthenticatedUser(token);
+        if (user != null) {
+            console.log(user.email);
+            console.log(user.id);
+            await accountService.deleteUser(user);
+            res.redirect('/');
+        } else {
+            res.redirect('/account/logout');
+        }
+    } else {
+        res.redirect('/');
+    }
+
 })
 
 module.exports = router;

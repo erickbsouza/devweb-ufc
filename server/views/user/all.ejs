@@ -1,0 +1,57 @@
+<link class="theme-dependent" rel='stylesheet' type='text/css' media='screen' href='/css/profile.css' />
+<div class="card-container">
+    <div id="personal" class="column-info">
+        <div class="column-4">
+            <div class="card">
+                <div class="card-header flex-between">
+                    <p class="card-title">Todos os Usuários</p>
+                </div>
+                <div class="card-body flex-between">
+                    <div class="info">
+
+
+                        <ul>
+
+                        </ul>
+
+
+                        <table class="table-users">
+                            <tr>
+                                <th>Nome</th>
+                                <th>Sobrenome</th>
+                                <th>Email</th>
+                                <th>Usuário</th>
+                                <th>Telefone</th>
+                                <th>Opções</th>
+                            </tr>
+
+                            <% users.forEach(function(user){ %>
+                                <tr>
+                                    <td>
+                                        <%- user.name %>
+                                    </td>
+                                    <td>
+                                        <%- user.surname %>
+                                    </td>
+                                    <td>
+                                        <%- user.email %>
+                                    </td>
+                                    <td>
+                                        <%- user.nusuario %>
+                                    </td>
+                                    <td>
+                                        <%- user.telefone %>
+                                    </td>
+                                    <td><i class="fas fa-search"><a>apagar</a></i></td>
+                                </tr>
+
+                                <% }); %>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

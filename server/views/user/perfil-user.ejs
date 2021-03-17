@@ -11,10 +11,12 @@
                         <div>
                             <p class="card-item-text-topic">Foto de Perfil </p>
                             <div class="pr">
-                                <img class= "p-image" src="<%- pageData.user.foto %>" alt="Foto do Usuário">
+                                <img class="p-image" src="<%- pageData.user.foto %>" alt="Foto do Usuário">
                             </div>
-                            <div class="hr"><hr></div>
-                           
+                            <div class="hr">
+                                <hr>
+                            </div>
+
                             <form method="POST" action="/account/edit-user">
                                 <p>E-mail: </p>
                                 <p class="card-item-text-content">
@@ -22,28 +24,28 @@
                                         <input name="email" type="text" value="<%- pageData.user.email %>">
                                     </div>
                                 </p>
-    
+
                                 <p>Nome: </p>
                                 <p class="card-item-text-content">
                                     <div class="column-4">
                                         <input name="name" type="text" value="<%- pageData.user.name %>">
                                     </div>
                                 </p>
-    
+
                                 <p>Sobrenome: </p>
                                 <p class="card-item-text-content">
                                     <div class="column-4">
                                         <input name="surname" type="text" value="<%- pageData.user.surname %>">
                                     </div>
                                 </p>
-    
+
                                 <p>Nome de Usuário: </p>
                                 <p class="card-item-text-content">
                                     <div class="column-4">
                                         <input name="nusuario" type="text" value="<%- pageData.user.nusuario %>">
                                     </div>
                                 </p>
-    
+
                                 <p>Número do Telefone: </p>
                                 <p class="card-item-text-content">
                                     <div class="column-4">
@@ -101,7 +103,10 @@
                             <p class="card-item-text-topic">Você pode apagar sua conta clicando no botão abaixo. </p>
                             <p class="card-item-text-content">
                                 <p class="card-item-text-content">
-                                    <a href="index-nao-aut.html"> Remover</a>
+                                    <form method="POST" action="/account/delete-user">
+                                        <input type="submit" value="Remover">
+                                    </form>
+
                                 </p>
                             </p>
                         </div>

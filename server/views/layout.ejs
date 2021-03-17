@@ -19,39 +19,42 @@
 <body>
 
     <header>
-        <a href="/"><h5 class="title">Projeto DevWeb 1.0</h5></a>
+        <a href="/">
+            <h5 class="title">Projeto DevWeb 1.0</h5>
+        </a>
     </header>
 
     <div class="topnav">
-        <% if (user == null) { %> 
+        <% if (user == null) { %>
             <a href="#login">Login</a>
             <a href="#buscar">Buscar</a>
             <a href="#cadastrar">Cadastre-se</a>
-        <% } else { %>
-            <a href="/account/logout">Logout</a>
-            <a href="#buscar">Buscar</a>
-            <% if (user.profile == 'creator' || user.profile == 'reviewer') {%>
-                <a href="/occurrence/create">Criar</a>
-            <% } %>
-            <% if (user.profile == 'reviewer') {%>
-                <a href="/occurrence/review">Revisar</a>
-            <% } %>
-            <a href="#alterar-senha">Alterar Senha</a>
-            <a href="/account/perfil">Meu perfil</a>
-        <% } %>
-        <a id='change-theme-button' href="#">Modo Escuro</a>
-        <div class="dropdown">
-            <a>Fonte</a>
-            <div class="dropdown-content">
-              <a class="select-small-font" href="#" onclick="onChangeFontClicked(0);">Pequena</a>
-              <a class="select-medium-font" href="#" onclick="onChangeFontClicked(1);">Média</a>
-              <a class="select-large-font" href="#" onclick="onChangeFontClicked(2);">Grande</a>
-            </div>
-        </div>
+            <% } else { %>
+                <a href="/account/logout">Logout</a>
+                <a href="#buscar">Buscar</a>
+                <% if (user.profile == 'creator' || user.profile == 'reviewer') {%>
+                    <a href="/occurrence/create">Criar</a>
+                    <% } %>
+                        <% if (user.profile == 'reviewer') {%>
+                            <a href="/occurrence/review">Revisar</a>
+                            <% } %>
+                                <a href="#alterar-senha">Alterar Senha</a>
+                                <a href="/account/perfil">Meu perfil</a>
+                                <a href="/user/all">Todos Usuários</a>
+                                <% } %>
+                                    <a id='change-theme-button' href="#">Modo Escuro</a>
+                                    <div class="dropdown">
+                                        <a>Fonte</a>
+                                        <div class="dropdown-content">
+                                            <a class="select-small-font" href="#" onclick="onChangeFontClicked(0);">Pequena</a>
+                                            <a class="select-medium-font" href="#" onclick="onChangeFontClicked(1);">Média</a>
+                                            <a class="select-large-font" href="#" onclick="onChangeFontClicked(2);">Grande</a>
+                                        </div>
+                                    </div>
     </div>
 
     <main>
-        <%- include(page, pageData) %> 
+        <%- include(page, pageData) %>
     </main>
 
     <div class="footer">

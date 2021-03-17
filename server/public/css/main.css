@@ -53,7 +53,7 @@ header {
 
 .card-body {
     padding: 10px 10px;
-    overflow:hidden;
+    overflow: hidden;
 }
 
 .card-header {
@@ -80,7 +80,6 @@ input[type=time] {
     background-color: #f8f8f8;
     transition: width 0.4s ease-in-out;
 }
-
 
 input[type=date]:focus,
 input[type=time]:focus,
@@ -111,35 +110,67 @@ input[type=reset] {
     border-radius: 4px;
     background-color: #f8f8f8;
     resize: none;
-  }
+}
 
-  
-  
-  .dropdown {
+.dropdown {
     float: left;
     overflow: hidden;
-  }
+}
 
-  /* Dropdown content (hidden by default) */
-  .dropdown-content {
+
+/* Dropdown content (hidden by default) */
+
+.dropdown-content {
     display: none;
     position: absolute;
     background: #E6FAFB;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
-  }
+}
 
-  /* Dropdown content (hidden by default) */
-  .dropdown-content a{
+
+/* Dropdown content (hidden by default) */
+
+.dropdown-content a {
     float: none;
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
     text-align: left;
-  }
-  
-  /* Show the dropdown menu on hover */
-  .dropdown:hover .dropdown-content {
+}
+
+
+/* Show the dropdown menu on hover */
+
+.dropdown:hover .dropdown-content {
     display: block;
-  }
+}
+
+.table-users {
+    justify-content: center;
+    width: 100%;
+    border: 1px solid rgba(247, 246, 246, 0.192);
+    padding: 8px;
+}
+
+.table-users tr {
+    justify-content: center;
+}
+
+.table-users tr:nth-child(even) {
+    background-color: #c9c7c72d;
+}
+
+.table-users tr:hover {
+    background-color: #f5f5f583;
+}
+
+.table-users th {
+    justify-content: center;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #d7e3e39d;
+    color: black;
+}

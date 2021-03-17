@@ -9,6 +9,7 @@ router.get('/', async(req, res) => {
         occurrence = await occurrenceCollection.getOccurrences();
         if (occurrence != null) {
             console.log(occurrence.length)
+            occurrence = occurrence.filter((v) => v.visibility == 1);
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify(occurrence));
         } else {

@@ -51,7 +51,7 @@ router.post('/salvar-alteracoes', async (req, res) => {
         email: req.body.email,
         number: req.body.number,
         description: req.body.description
-}
+}})
 
 router.post('/edit-user', async (req, res) => {
     if (req.query.token || req.cookies.token) {

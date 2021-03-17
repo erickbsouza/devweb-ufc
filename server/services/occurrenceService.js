@@ -13,7 +13,7 @@ exports.editOccurrence = async (occurrenceEditJson) => {
 
 exports.toggleOccurrenceVisibility = async (occurrenceId) => {
     var occurrence = (await occurrenceModel.getOccurrences({_id: occurrenceId}))[0];
-    occurrence.visibility = occurrence.visibility % 1;
+    occurrence.visibility = occurrence.visibility == 1 ? 0 : 1;
     await occurrenceModel.updateOccurrence(occurrence);
 }
 
@@ -35,10 +35,13 @@ exports.getOccurrencesForReview = async () => {
     for (i = 0; i < occurrences.length; ++i)
     {
         occurrence = occurrences[i];
+        usuario = users.find((v, i) => v._id == occurrence.userId);
+        if (usuario == undefined)
+            usuario = {nusuario: 'desconhecido'};
         occurrencesForReview.push({
             _id: occurrence._id,
             title: occurrence.title,
-            userName: users.find((v, i) => v._id == occurrence.userId).nusuario,
+            userName: usuario.nusuario,
             visibility: occurrence.visibility == 1 ? 'Visivel' : 'Não visível'
         });
     }

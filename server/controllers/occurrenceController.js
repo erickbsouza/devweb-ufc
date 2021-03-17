@@ -147,7 +147,15 @@ router.post('/edit-occurrence/:id', async(req, res) => {
     }
 })
 
-
+router.get('/search', async(req, res) => {
+    user = null;
+    if (req.query.token || req.cookies.token) {
+        token = req.query.token ? req.query.token : req.cookies.token;
+        user = await accountService.getAuthenticatedUser(token);
+    }
+    result = await occurrenceService.searchOccurrences(req.query);
+    res.customRender('home/searchedOccurrences', user, {searchedOccurrences: result})
+})
 
 
 module.exports = router;

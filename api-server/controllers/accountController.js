@@ -4,24 +4,17 @@ const express = require('express')
 const accountService = require('../services/accountService');
 const router = express.Router();
 const multer = require('multer');
-const httpService = require('../services/httpService');
 
 router.post('/login', async(req, res) => {
     if (req.body) {
-        try {
-            user = await httpService.post(`${httpService.domain}/account/login`, req.body);
-            if (user) {
-                res.cookie('token', user.token, { maxAge: user.expirationDate - Date.now() });
-                res.redirect('/');
-            } else {
-                res.redirect('/?loginFailed=1');
-            }
-        }
-        catch (err) {
-            console.log(err);
+        user = await accountService.authenticateUser(req.body.email, md5(req.body.password));
+        if (user) {
+            res.send(user);
+        } else {
+            res.sendStatus(401);
         }
     } else {
-        res.sendStatus(404);
+        res.sendStatus(401);
     }
 })
 
@@ -36,7 +29,7 @@ router.get('/perfil', async(req, res) => {
         token = req.query.token ? req.query.token : req.cookies.token;
         user = await accountService.getAuthenticatedUser(token);
         if (user != null) {
-            res.customRender('user/perfil-user', user, { user: user });
+            //res.customRender('user/perfil-user', user, { user: user });
         } else {
             res.redirect('/account/logout');
         }
@@ -68,7 +61,7 @@ router.post('/edit-user', async(req, res) => {
             user.telefone = req.body.telefone;
             user.hash = md5(req.body.password);
             await accountService.editUser(user);
-            res.customRender('user/perfil-user', user, { user: user });
+            //res.customRender('user/perfil-user', user, { user: user });
         } else {
             res.redirect('/account/logout');
         }

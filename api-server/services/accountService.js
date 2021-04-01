@@ -52,7 +52,7 @@ exports.editUser = async(user) => {
 
 exports.getAuthenticatedReviewerUser = async(token) => {
     var user = await userModel.getUserByToken(token);
-    if (user.profile == 'reviewer')
+    if (user && user.profile == 'reviewer')
         return user;
     else
         return null;

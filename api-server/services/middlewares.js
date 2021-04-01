@@ -16,12 +16,3 @@ exports.parseCookie = (req, res, next) => {
         next();
     }
 }
-
-exports.injectCustomRender = (req, res, next) => {
-    res.customRender = (page, user, pageData) => {
-        res.render('layout', {page: page, user: user, pageData: pageData});
-    };
-
-
-    next();
-}

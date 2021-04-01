@@ -53,7 +53,13 @@ exports.getOccurrencesForReview = async () => {
 }
 
 exports.getOccurrenceById = async (occurrenceId) => {
-    return  (await occurrenceModel.getOccurrences({_id: occurrenceId}))[0];
+    return  (await occurrenceModel.getOccurrences({_id: parseInt(occurrenceId)}))[0];
+}
+
+exports.getOccurrencesMain = async () => {
+    occurrence = await occurrenceModel.getOccurrences();
+    occurrence = occurrence.filter((v) => v.visibility == 1);
+    return occurrence;
 }
 
 exports.searchOccurrences = async (searchJson) => {

@@ -5,38 +5,22 @@ const accountService = require('../services/accountService')
 const occurrenceService = require('../services/occurrenceService')
 
 router.get('/', async(req, res) => {
-    setTimeout(async () => {
-        occurrence = await occurrenceCollection.getOccurrences();
-        if (occurrence != null) {
-            console.log(occurrence.length)
-            occurrence = occurrence.filter((v) => v.visibility == 1);
-            res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify(occurrence));
-        } else {
-            res.redirect('/erro');
-        }
-    }, 2000);
+    var occurrences = await occurrenceService.getOccurrencesMain();
+    res.send(occurrences);
 })
 
-router.get('/create', async(req, res) => {
-    if (req.query.token || req.cookies.token) {
-        token = req.query.token ? req.query.token : req.cookies.token;
-        user = await accountService.getAuthenticatedUser(token);
-        if (user) {
-            res.customRender('novaocorrencia/index', user, {});
-        } else {
-            res.customRender('home/index', null, {})
-        }
-    } else if (req.query.loginFailed == 1) {
-        res.customRender('home/index', null, { loginFailed: 1 });
+router.get('/occurrenceId/:occurrenceId', async(req, res) => {
+    var occurrence = await occurrenceService.getOccurrenceById(req.params.occurrenceId);
+    if (occurrence != null) {
+        res.send(occurrence);
     } else {
-        res.customRender('home/index', null, {})
+        res.sendStatus(404);
     }
 })
 
-router.post('/create2', async(req, res) => {
-    if (req.query.token || req.cookies.token) {
-        token = req.query.token ? req.query.token : req.cookies.token;
+router.post('/', async (req, res) => {
+    if (req.headers.authorization) {
+        token = req.headers.authorization;
         user = await accountService.getAuthenticatedUser(token);
         occurrence = {
             title: req.body.title,
@@ -47,53 +31,38 @@ router.post('/create2', async(req, res) => {
             severity: req.body.severity,
             status: req.body.status,
         };
-       
-        if (user && user.profile=="creator" || user.profile =="reviewer") {
-            await occurrenceService.addOccurrence(occurrence, user._id)
-            res.customRender('novaocorrencia/index', user, {});
+        if (user && (user.profile=="creator" || user.profile =="reviewer")) {
+            await occurrenceService.addOccurrence(occurrence, user._id);
+            res.sendStatus(200);
         } else {
-            res.customRender('home/index', null, {})
+            res.sendStatus(403);
         }
-    } else if (req.query.loginFailed == 1) {
-        res.customRender('home/index', null, { loginFailed: 1 });
     } else {
-        res.customRender('home/index', null, {})
+        res.sendStatus(401);
     }
-})
+});
 
 router.get('/review', async(req, res) => {
-    if (req.query.token || req.cookies.token) {
-        token = req.query.token ? req.query.token : req.cookies.token;
+    if (req.headers.authorization) {
+        token = req.headers.authorization;
         user = await accountService.getAuthenticatedReviewerUser(token);
         if (user) {
             occurrencesForReview = await occurrenceService.getOccurrencesForReview();
-            res.customRender('occurrence/review', user, {occurrences: occurrencesForReview});
+            res.send(occurrencesForReview);
         } else {
-            res.customRender('home/index', null, {})
+            res.sendStatus(403);
         }
-    } else if (req.query.loginFailed == 1) {
-        res.customRender('home/index', null, { loginFailed: 1 });
     } else {
-        res.customRender('home/index', null, {})
+        res.sendStatus(401);
     }
 })
 
-router.get('/edit-occurrence', async(req, res) => {
-    if (req.query.token || req.cookies.token) {
-        token = req.query.token ? req.query.token : req.cookies.token;
-        user = await accountService.getAuthenticatedReviewerUser(token);
-        if (user) {
-            occurrence = await occurrenceService.getOccurrenceById(parseInt(req.query.occurrenceId));
-            res.customRender('occurrence/edit-occurrence', user, occurrence);
-        } else {
-            res.customRender('home/index', null, {})
-        }
-    } else if (req.query.loginFailed == 1) {
-        res.customRender('home/index', null, { loginFailed: 1 });
-    } else {
-        res.customRender('home/index', null, {})
-    }
+router.get('/search', async(req, res) => {
+    result = await occurrenceService.searchOccurrences(req.query);
+    res.send(result);
 })
+
+//---------------------------OLD---------------------------
 
 router.get('/delete/:occurrenceId', async(req, res) => {
     if (req.query.token || req.cookies.token) {
@@ -146,16 +115,6 @@ router.post('/edit-occurrence/:id', async(req, res) => {
     } else {
         res.customRender('home/index', null, {})
     }
-})
-
-router.get('/search', async(req, res) => {
-    user = null;
-    if (req.query.token || req.cookies.token) {
-        token = req.query.token ? req.query.token : req.cookies.token;
-        user = await accountService.getAuthenticatedUser(token);
-    }
-    result = await occurrenceService.searchOccurrences(req.query);
-    res.customRender('home/searchedOccurrences', user, {searchedOccurrences: result})
 })
 
 

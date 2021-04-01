@@ -12,6 +12,8 @@ generateToken = (seed) => {
     return result;
 }
 
+//--------------------------------Matheus---------------------------------
+
 // Autentica o usuário e retorna ele autenticado.
 exports.authenticateUser = async(email, hash) => {
     let user = await userModel.getUserByEmail(email);
@@ -40,6 +42,9 @@ exports.newUser = async(user) => {
 exports.deleteUser = async(user) => {
     await userModel.deleteUser(user);
 }
+
+
+//--------------------------------Erick---------------------------------
 
 exports.editUser = async(user) => {
     await userModel.saveUser(user);

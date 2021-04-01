@@ -27,7 +27,6 @@ exports.addOccurrence = async (occurrence, userId) => {
     occurrence.creationDate = Date.now();
     await occurrenceModel.addOccurrence(occurrence);
 }
-
 exports.getOccurrencesForReview = async () => {
     users = await userModel.queryUsers();
     occurrences = await occurrenceModel.getOccurrences({$query: {}, $orderBy: {visibility: 1}});

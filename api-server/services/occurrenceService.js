@@ -1,6 +1,8 @@
 const occurrenceModel = require('../model/occurrenceModel');
 const userModel = require('../model/userModel');
 
+//----------------------------Andrea-----------------------------
+
 exports.editOccurrence = async (occurrenceEditJson) => {
     var occurrence = (await occurrenceModel.getOccurrences({_id: occurrenceEditJson._id}))[0];
     occurrence.description = occurrenceEditJson.description;
@@ -20,6 +22,8 @@ exports.toggleOccurrenceVisibility = async (occurrenceId) => {
 exports.deleteOccurrence = async (occurrenceId) => {
     await occurrenceModel.deleteOccurrence(occurrenceId);
 }
+
+//----------------------------Alan-----------------------------
 
 exports.addOccurrence = async (occurrence, userId) => {
     occurrence.userId = userId;
@@ -50,6 +54,49 @@ exports.getOccurrencesForReview = async () => {
 
 exports.getOccurrenceById = async (occurrenceId) => {
     return  (await occurrenceModel.getOccurrences({_id: occurrenceId}))[0];
+}
+
+exports.searchOccurrences = async (searchJson) => {
+    typeQuery = getTypeQuery(searchJson);
+    statusQuery = getStatusQuery(searchJson);
+    severityQuery = getSeverityQuery(searchJson);
+    if (typeQuery.length == 0 || statusQuery == 0 || severityQuery == 0)
+        return [];
+    basicQuery = {
+        title: {$regex: `.*${searchJson.title}.*`},
+        "location.descricao": {$regex: `.*${searchJson.location}.*`},
+        visibility: 1
+    };
+    dateTimeS = new Date(searchJson.dateTimeStart).getTime();
+    if (!isNaN(dateTimeS))
+    {
+        if (basicQuery.dateTime == undefined)
+            basicQuery.dateTime = {};
+        basicQuery.dateTime.$gte = dateTimeS;
+    }
+    dateTimeE = new Date(searchJson.dateTimeEnd).getTime();
+    if (!isNaN(dateTimeE))
+    {
+        if (basicQuery.dateTime == undefined)
+            basicQuery.dateTime = {};
+        basicQuery.dateTime.$lte = dateTimeE;
+    }
+    query = {
+        $and: [
+            basicQuery,
+            {
+                $or: typeQuery
+            },
+            {
+                $or: statusQuery
+            },
+            {
+                $or: severityQuery
+            }
+        ]
+    };
+
+    return await occurrenceModel.getOccurrences(query);
 }
 
 getTypeQuery = (searchJson) => {
@@ -101,47 +148,4 @@ getSeverityQuery = (searchJson) => {
         severityQuery.push({severity: 'high'});
     }
     return severityQuery;
-}
-
-exports.searchOccurrences = async (searchJson) => {
-    typeQuery = getTypeQuery(searchJson);
-    statusQuery = getStatusQuery(searchJson);
-    severityQuery = getSeverityQuery(searchJson);
-    if (typeQuery.length == 0 || statusQuery == 0 || severityQuery == 0)
-        return [];
-    basicQuery = {
-        title: {$regex: `.*${searchJson.title}.*`},
-        "location.descricao": {$regex: `.*${searchJson.location}.*`},
-        visibility: 1
-    };
-    dateTimeS = new Date(searchJson.dateTimeStart).getTime();
-    if (!isNaN(dateTimeS))
-    {
-        if (basicQuery.dateTime == undefined)
-            basicQuery.dateTime = {};
-        basicQuery.dateTime.$gte = dateTimeS;
-    }
-    dateTimeE = new Date(searchJson.dateTimeEnd).getTime();
-    if (!isNaN(dateTimeE))
-    {
-        if (basicQuery.dateTime == undefined)
-            basicQuery.dateTime = {};
-        basicQuery.dateTime.$lte = dateTimeE;
-    }
-    query = {
-        $and: [
-            basicQuery,
-            {
-                $or: typeQuery
-            },
-            {
-                $or: statusQuery
-            },
-            {
-                $or: severityQuery
-            }
-        ]
-    };
-
-    return await occurrenceModel.getOccurrences(query);
 }

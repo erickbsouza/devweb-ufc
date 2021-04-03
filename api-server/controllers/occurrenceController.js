@@ -68,7 +68,6 @@ router.put('/', async(req, res) =>{
         user = await accountService.getAuthenticatedReviewerUser(token);
         if (user) {
             var editJson = req.body;
-            editJson._id = parseInt(req.params.id);
             await occurrenceService.editOccurrence(editJson);
             res.sendStatus(200);
         } else {
@@ -93,7 +92,7 @@ router.put('/toggle-visibility', async(req, res) =>{
     }
     
 })
-router.delete('/', async(req, res) =>{
+router.delete('/:occurrenceId', async(req, res) =>{
     if (req.headers.authorization) {
         token = req.headers.authorization;
         user = await accountService.getAuthenticatedReviewerUser(token);

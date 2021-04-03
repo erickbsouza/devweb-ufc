@@ -88,7 +88,7 @@ router.get('/delete/:occurrenceId', async(req, res) => {
         token = req.query.token ? req.query.token : req.cookies.token;
         user = await accountService.getAuthenticatedReviewerUser(token);
         if (user) {
-            await occurrenceService.deleteOccurrence(parseInt(req.params.occurrenceId));
+            await httpService.delete(`${httpService.domain}/api/occurrence/delete/${req.params.occurrenceId}`, token);
             res.redirect('/occurrence/review');
         } else {
             res.customRender('home/index', null, {})
@@ -105,7 +105,7 @@ router.get('/toggle-visibility/:occurrenceId', async(req, res) => {
         token = req.query.token ? req.query.token : req.cookies.token;
         user = await accountService.getAuthenticatedReviewerUser(token);
         if (user) {
-            await occurrenceService.toggleOccurrenceVisibility(parseInt(req.params.occurrenceId));
+            await httpService.put(`${httpService.domain}/api/occurrence/toggle-visibility`, {occurrenceId: req.params.occurrenceId}, token);
             res.redirect('/occurrence/review');
         } else {
             res.customRender('home/index', null, {})
@@ -124,7 +124,7 @@ router.post('/edit-occurrence/:id', async(req, res) => {
         if (user) {
             var editJson = req.body;
             editJson._id = parseInt(req.params.id);
-            await occurrenceService.editOccurrence(editJson);
+            await httpService.put(`${httpService.domain}/api/occurrence`, editJson, token);
             res.redirect('/occurrence/review');
         } else {
             res.customRender('home/index', null, {})

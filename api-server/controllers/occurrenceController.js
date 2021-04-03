@@ -62,6 +62,52 @@ router.get('/search', async(req, res) => {
     res.send(result);
 })
 
+router.put('/', async(req, res) =>{
+    if (req.headers.authorization) {
+        token = req.headers.authorization;
+        user = await accountService.getAuthenticatedReviewerUser(token);
+        if (user) {
+            var editJson = req.body;
+            editJson._id = parseInt(req.params.id);
+            await occurrenceService.editOccurrence(editJson);
+            res.sendStatus(200);
+        } else {
+            res.sendStatus(403);
+        }
+    } else {
+        res.sendStatus(401);
+    }
+})
+router.put('/toggle-visibility', async(req, res) =>{
+    if (req.headers.authorization) {
+        token = req.headers.authorization;
+        user = await accountService.getAuthenticatedReviewerUser(token);
+        if (user) {
+            await occurrenceService.toggleOccurrenceVisibility(parseInt(req.body.occurrenceId));
+            res.sendStatus(200);
+        } else {
+            res.sendStatus(403);
+        }
+    } else {
+        res.sendStatus(401);
+    }
+    
+})
+router.delete('/', async(req, res) =>{
+    if (req.headers.authorization) {
+        token = req.headers.authorization;
+        user = await accountService.getAuthenticatedReviewerUser(token);
+        if (user) {
+            await occurrenceService.deleteOccurrence(parseInt(req.params.occurrenceId));
+            res.sendStatus(200);
+        } else {
+            res.sendStatus(403);
+        }
+    } else {
+        res.sendStatus(401);
+    }
+    
+})
 //---------------------------OLD---------------------------
 
 router.get('/delete/:occurrenceId', async(req, res) => {

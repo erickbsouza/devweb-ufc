@@ -64,7 +64,6 @@ function createOccurrenceNode(occurrence)
     mapDiv.className = "map";
     var mapImg = document.createElement("img");
     mapImg.className = "m-image";
-    //TODO remove hard code
     var x = lon2tile(occurrence.location.longitude, 16);
     var y = lat2tile(occurrence.location.latitude, 16);
     mapImg.src = `https://a.tile.openstreetmap.org/16/${x}/${y}.png`;

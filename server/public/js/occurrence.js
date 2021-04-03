@@ -65,8 +65,10 @@ function createOccurrenceNode(occurrence)
     var mapImg = document.createElement("img");
     mapImg.className = "m-image";
     //TODO remove hard code
-    mapImg.src = "/images/map-1.PNG";
-    mapImg.alt = "Map 1";
+    var x = lon2tile(occurrence.location.longitude, 16);
+    var y = lat2tile(occurrence.location.latitude, 16);
+    mapImg.src = `https://a.tile.openstreetmap.org/16/${x}/${y}.png`;
+    mapImg.alt = "Map-Tile";
     mapDiv.appendChild(mapImg);
     var mapDescriptionP = document.createElement("p");
     mapDescriptionP.className = "map-description";
@@ -93,3 +95,17 @@ function createOccurrenceNode(occurrence)
 
     return cardDiv;
 }
+
+
+//Reproject the coordinates to the Mercator projection (from EPSG:4326 to EPSG:3857):
+// x = lon
+// y = arsinh(tan(lat)) = log[tan(lat) + sec(lat)]
+// (lat and lon are in radians)
+// Transform range of x and y to 0 – 1 and shift origin to top left corner:
+// x = [1 + (x / π)] / 2
+// y = [1 − (y / π)] / 2
+// Calculate the number of tiles across the map, n, using 2zoom
+// Multiply x and y by n. Round results down to give tilex and tiley.
+function lon2tile(lon,zoom) { return (Math.floor((lon+180)/360*Math.pow(2,zoom))); }
+
+function lat2tile(lat,zoom)  { return (Math.floor((1-Math.log(Math.tan(lat*Math.PI/180) + 1/Math.cos(lat*Math.PI/180))/Math.PI)/2 *Math.pow(2,zoom))); }

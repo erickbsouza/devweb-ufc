@@ -1,5 +1,6 @@
 const occurrenceModel = require('../model/occurrenceModel');
 const userModel = require('../model/userModel');
+const mapService = require('./mapService');
 
 //----------------------------Andrea-----------------------------
 
@@ -29,6 +30,9 @@ exports.addOccurrence = async (occurrence, userId) => {
     occurrence.userId = userId;
     occurrence.visibility = 0;
     occurrence.creationDate = Date.now();
+    let apiLocation = await mapService.getCoordinates(occurrence.location.descricao);
+    occurrence.location.latitude = apiLocation.latitude;
+    occurrence.location.longitude = apiLocation.longitude;
     return await occurrenceModel.addOccurrence(occurrence);
 }
 

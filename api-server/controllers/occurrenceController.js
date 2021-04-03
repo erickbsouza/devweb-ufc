@@ -32,8 +32,8 @@ router.post('/', async (req, res) => {
             status: req.body.status,
         };
         if (user && (user.profile=="creator" || user.profile =="reviewer")) {
-            await occurrenceService.addOccurrence(occurrence, user._id);
-            res.sendStatus(200);
+            var insertedId = await occurrenceService.addOccurrence(occurrence, user._id);
+            res.send({insertedId: insertedId});
         } else {
             res.sendStatus(403);
         }

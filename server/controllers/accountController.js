@@ -9,7 +9,7 @@ const httpService = require('../services/httpService');
 router.post('/login', async(req, res) => {
     if (req.body) {
         try {
-            user = await httpService.post(`${httpService.domain}/account/login`, req.body);
+            user = await httpService.post(`${httpService.domain}/api/account/login`, req.body);
             if (user) {
                 res.cookie('token', user.token, { maxAge: user.expirationDate - Date.now() });
                 res.redirect('/');

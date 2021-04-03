@@ -29,7 +29,7 @@ exports.addOccurrence = async (occurrence, userId) => {
     occurrence.userId = userId;
     occurrence.visibility = 0;
     occurrence.creationDate = Date.now();
-    await occurrenceModel.addOccurrence(occurrence);
+    return await occurrenceModel.addOccurrence(occurrence);
 }
 
 exports.getOccurrencesForReview = async () => {

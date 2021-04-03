@@ -3,19 +3,17 @@ const router = express.Router();
 const occurrenceCollection = require('../model/occurrenceModel')
 const accountService = require('../services/accountService')
 const occurrenceService = require('../services/occurrenceService')
+const httpService = require('../services/httpService')
 
 router.get('/', async(req, res) => {
-    setTimeout(async () => {
-        occurrence = await occurrenceCollection.getOccurrences();
-        if (occurrence != null) {
-            console.log(occurrence.length)
-            occurrence = occurrence.filter((v) => v.visibility == 1);
-            res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify(occurrence));
-        } else {
-            res.redirect('/erro');
-        }
-    }, 2000);
+    let occurrences = await httpService.get(`${httpService.domain}/api/occurrence`);
+    if (occurrences != null) {
+        occurrences = occurrences.filter((v) => v.visibility == 1);
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(occurrences));
+    } else {
+        res.redirect('/erro');
+    }
 })
 
 router.get('/create', async(req, res) => {
@@ -38,18 +36,8 @@ router.post('/create2', async(req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
         user = await accountService.getAuthenticatedUser(token);
-        occurrence = {
-            title: req.body.title,
-            dateTime: req.body.dateTime,
-            description: req.body.description,
-            location: { latitude: req.body.latitude, longitude:req.body.longitude, descricao:req.body.descricao },
-            type: req.body.type,
-            severity: req.body.severity,
-            status: req.body.status,
-        };
-       
         if (user && user.profile=="creator" || user.profile =="reviewer") {
-            await occurrenceService.addOccurrence(occurrence, user._id)
+            await httpService.post(`${httpService.domain}/api/occurrence`, req.body, user.token);
             res.customRender('novaocorrencia/index', user, {});
         } else {
             res.customRender('home/index', null, {})
@@ -66,7 +54,7 @@ router.get('/review', async(req, res) => {
         token = req.query.token ? req.query.token : req.cookies.token;
         user = await accountService.getAuthenticatedReviewerUser(token);
         if (user) {
-            occurrencesForReview = await occurrenceService.getOccurrencesForReview();
+            occurrencesForReview = await httpService.get(`${httpService.domain}/api/occurrence/review`, user.token);
             res.customRender('occurrence/review', user, {occurrences: occurrencesForReview});
         } else {
             res.customRender('home/index', null, {})
@@ -83,7 +71,7 @@ router.get('/edit-occurrence', async(req, res) => {
         token = req.query.token ? req.query.token : req.cookies.token;
         user = await accountService.getAuthenticatedReviewerUser(token);
         if (user) {
-            occurrence = await occurrenceService.getOccurrenceById(parseInt(req.query.occurrenceId));
+            occurrence = await httpService.get(`${httpService.domain}/api/occurrence/occurrenceId/${req.query.occurrenceId}`, user.token);
             res.customRender('occurrence/edit-occurrence', user, occurrence);
         } else {
             res.customRender('home/index', null, {})
@@ -154,9 +142,23 @@ router.get('/search', async(req, res) => {
         token = req.query.token ? req.query.token : req.cookies.token;
         user = await accountService.getAuthenticatedUser(token);
     }
-    result = await occurrenceService.searchOccurrences(req.query);
+    result = await httpService.get(`${httpService.domain}/api/occurrence/search${queryObjectToQueryString(req.query)}`);
     res.customRender('home/searchedOccurrences', user, {searchedOccurrences: result})
 })
+
+
+queryObjectToQueryString = (query) => {
+    let entries = Object.entries(query);
+    let queryStr =  '?';
+    for (i = 0; i < entries.length; ++i) {
+        let e = entries[i];
+        queryStr += `${e[0]}=${e[1]}`;
+        if (i < entries.length - 1) {
+            queryStr += '&';
+        }
+    }
+    return queryStr;
+}
 
 
 module.exports = router;

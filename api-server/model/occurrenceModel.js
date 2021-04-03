@@ -168,6 +168,7 @@ addOccurrenceInCollection = async (occurrence) => {
     lastid = (await collection.find().sort({_id:-1}).limit(1).toArray())[0]._id;
     occurrence._id = lastid+1;
     await collection.insertOne(occurrence);
+    return occurrence._id;
 }
 
 deleteOccurrenceInCollection = async (occurrenceId) => {
@@ -195,5 +196,5 @@ exports.deleteOccurrence = async(occurrenceId) => {
     await deleteOccurrenceInCollection(occurrenceId);
 }
 exports.addOccurrence = async(occurrence) => {
-    await addOccurrenceInCollection(occurrence);
+    return await addOccurrenceInCollection(occurrence);
 }

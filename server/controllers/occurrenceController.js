@@ -88,7 +88,7 @@ router.get('/delete/:occurrenceId', async(req, res) => {
         token = req.query.token ? req.query.token : req.cookies.token;
         user = await accountService.getAuthenticatedReviewerUser(token);
         if (user) {
-            await httpService.delete(`${httpService.domain}/api/occurrence/delete/${req.params.occurrenceId}`, token);
+            await httpService.delete(`${httpService.domain}/api/occurrence/${req.params.occurrenceId}`, token);
             res.redirect('/occurrence/review');
         } else {
             res.customRender('home/index', null, {})

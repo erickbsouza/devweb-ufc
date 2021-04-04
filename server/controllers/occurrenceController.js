@@ -36,7 +36,7 @@ router.post('/create2', async(req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
         user = await accountService.getAuthenticatedUser(token);
-        if (user && user.profile=="creator" || user.profile =="reviewer") {
+        if (user && user.profile == "creator" || user.profile == "reviewer") {
             await httpService.post(`${httpService.domain}/api/occurrence`, req.body, user.token);
             res.customRender('novaocorrencia/index', user, {});
         } else {
@@ -52,10 +52,10 @@ router.post('/create2', async(req, res) => {
 router.get('/review', async(req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
-        user = await accountService.getAuthenticatedReviewerUser(token);
+        user = await httpService.get(`${httpService.domain}/api/account/revisor`, token);
         if (user) {
             occurrencesForReview = await httpService.get(`${httpService.domain}/api/occurrence/review`, user.token);
-            res.customRender('occurrence/review', user, {occurrences: occurrencesForReview});
+            res.customRender('occurrence/review', user, { occurrences: occurrencesForReview });
         } else {
             res.customRender('home/index', null, {})
         }
@@ -69,7 +69,7 @@ router.get('/review', async(req, res) => {
 router.get('/edit-occurrence', async(req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
-        user = await accountService.getAuthenticatedReviewerUser(token);
+        user = await httpService.get(`${httpService.domain}/api/account/revisor`, user.token);
         if (user) {
             occurrence = await httpService.get(`${httpService.domain}/api/occurrence/occurrenceId/${req.query.occurrenceId}`, user.token);
             res.customRender('occurrence/edit-occurrence', user, occurrence);
@@ -86,7 +86,7 @@ router.get('/edit-occurrence', async(req, res) => {
 router.get('/delete/:occurrenceId', async(req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
-        user = await accountService.getAuthenticatedReviewerUser(token);
+        user = await httpService.get(`${httpService.domain}/api/account/revisor`, user.token);
         if (user) {
             await httpService.delete(`${httpService.domain}/api/occurrence/${req.params.occurrenceId}`, token);
             res.redirect('/occurrence/review');
@@ -103,9 +103,9 @@ router.get('/delete/:occurrenceId', async(req, res) => {
 router.get('/toggle-visibility/:occurrenceId', async(req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
-        user = await accountService.getAuthenticatedReviewerUser(token);
+        user = await httpService.get(`${httpService.domain}/api/account/revisor`, user.token);
         if (user) {
-            await httpService.put(`${httpService.domain}/api/occurrence/toggle-visibility`, {occurrenceId: req.params.occurrenceId}, token);
+            await httpService.put(`${httpService.domain}/api/occurrence/toggle-visibility`, { occurrenceId: req.params.occurrenceId }, token);
             res.redirect('/occurrence/review');
         } else {
             res.customRender('home/index', null, {})
@@ -120,7 +120,7 @@ router.get('/toggle-visibility/:occurrenceId', async(req, res) => {
 router.post('/edit-occurrence/:id', async(req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
-        user = await accountService.getAuthenticatedReviewerUser(token);
+        user = await httpService.get(`${httpService.domain}/api/account/revisor`, user.token);
         if (user) {
             var editJson = req.body;
             editJson._id = parseInt(req.params.id);
@@ -143,13 +143,13 @@ router.get('/search', async(req, res) => {
         user = await accountService.getAuthenticatedUser(token);
     }
     result = await httpService.get(`${httpService.domain}/api/occurrence/search${queryObjectToQueryString(req.query)}`);
-    res.customRender('home/searchedOccurrences', user, {searchedOccurrences: result})
+    res.customRender('home/searchedOccurrences', user, { searchedOccurrences: result })
 })
 
 
 queryObjectToQueryString = (query) => {
     let entries = Object.entries(query);
-    let queryStr =  '?';
+    let queryStr = '?';
     for (i = 0; i < entries.length; ++i) {
         let e = entries[i];
         queryStr += `${e[0]}=${e[1]}`;

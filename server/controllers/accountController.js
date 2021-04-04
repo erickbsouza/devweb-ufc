@@ -16,8 +16,7 @@ router.post('/login', async(req, res) => {
             } else {
                 res.redirect('/?loginFailed=1');
             }
-        }
-        catch (err) {
+        } catch (err) {
             console.log(err);
         }
     } else {
@@ -26,7 +25,7 @@ router.post('/login', async(req, res) => {
 })
 
 router.get('/logout', async(req, res) => {
-    await accountService.endSession(req.cookies.token);
+    await httpService.put(`${httpService.domain}/api/account/logout`, {}, req.cookies.token);
     res.clearCookie('token');
     res.redirect('/');
 })
@@ -45,17 +44,6 @@ router.get('/perfil', async(req, res) => {
     }
 })
 
-
-router.post('/salvar-alteracoes', async(req, res) => {
-    const user = {
-        name: req.body.name,
-        username: req.body.username,
-        email: req.body.email,
-        number: req.body.number,
-        description: req.body.description
-    }
-})
-
 router.post('/edit-user', async(req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
@@ -66,46 +54,42 @@ router.post('/edit-user', async(req, res) => {
             user.surname = req.body.surname;
             user.nusuario = req.body.nusuario;
             user.telefone = req.body.telefone;
-            user.hash = md5(req.body.password);
-            await accountService.editUser(user);
+            await httpService.put(`${httpService.domain}/api/account/edit-user`, user, user.token);
             res.customRender('user/perfil-user', user, { user: user });
         } else {
             res.redirect('/account/logout');
         }
-    }
-    else {
-        res.customRender('user/perfil-user.ejs', user, {user: user});
+    } else {
+        res.customRender('user/perfil-user.ejs', user, { user: user });
     }
 })
 
 // SET STORAGE
 var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, './public/upload-images/')
+    destination: function(req, file, cb) {
+        cb(null, './public/upload-images/')
     },
-    filename: function (req, file, cb) {
-      cb(null, file.fieldname + '-' + Date.now() + '.png')
+    filename: function(req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + '.png')
     }
-  })
-  
+})
+
 var uploadPhoto = multer({ storage: storage })
 
-router.post('/edit-user-photo', uploadPhoto.single('user-image'),async (req, res) => {
+router.post('/edit-user-photo', uploadPhoto.single('user-image'), async(req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
         imagePath = `/upload-images/${req.file.filename}`
-        user = await accountService.getAuthenticatedUser(token);       
-        if (user!=null){
+        user = await accountService.getAuthenticatedUser(token);
+        if (user != null) {
             user.foto = imagePath;
-            await accountService.editUser(user);
-            res.customRender('user/perfil-user', user, {user:user});
-        }
-        else {
+            await httpService.put(`${httpService.domain}/api/account/edit-user`, user, user.token);
+            res.customRender('user/perfil-user', user, { user: user });
+        } else {
             res.redirect('/account/logout');
         }
-    }
-    else {
-        res.customRender('user/perfil-user.ejs', user, {user: user});
+    } else {
+        res.customRender('user/perfil-user.ejs', user, { user: user });
     }
 })
 
@@ -118,7 +102,8 @@ router.post('/edit-pw', async(req, res) => {
                 res.redirect('/account/logout');
             } else {
                 user.hash = md5(req.body.novaSenha);
-                await accountService.editUser(user);
+                await httpService.put(`${httpService.domain}/api/account/edit-user`, user, user.token);
+                // requisicao
                 res.customRender('user/perfil-user', user, { user: user });
             }
         } else {
@@ -163,8 +148,6 @@ router.post('/delete-user', async(req, res) => {
         token = req.query.token ? req.query.token : req.cookies.token;
         user = await accountService.getAuthenticatedUser(token);
         if (user != null) {
-            console.log(user.email);
-            console.log(user.id);
             await accountService.deleteUser(user);
             res.redirect('/');
         } else {

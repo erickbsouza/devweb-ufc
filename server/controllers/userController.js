@@ -3,6 +3,7 @@ const md5 = require('md5')
 const express = require('express')
 const accountService = require('../services/accountService')
 const router = express.Router();
+const httpService = require('../services/httpService');
 
 
 
@@ -11,7 +12,7 @@ const router = express.Router();
 router.get('/all', async(req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
-        users = await accountService.getUsers();
+        users = await httpService.get(`${httpService.domain}/api/account/all`, token);
         if (users != null) {
             console.log(users);
             res.customRender('user/all', users, { users: users });

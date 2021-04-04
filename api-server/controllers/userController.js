@@ -8,21 +8,6 @@ const router = express.Router();
 
 
 
-router.get('/all', async(req, res) => {
-    if (req.query.token || req.cookies.token) {
-        token = req.query.token ? req.query.token : req.cookies.token;
-        users = await accountService.getUsers();
-        if (users != null) {
-            console.log(users);
-            res.customRender('user/all', users, { users: users });
-        } else {
-            console.log("Falhou em encontrar usuarios")
-        }
-    } else {
-        res.redirect('/');
-    }
-
-})
 
 router.post('/delete-user', async(req, res) => {
     if (req.query.token || req.cookies.token) {

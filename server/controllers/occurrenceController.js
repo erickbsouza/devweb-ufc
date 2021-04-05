@@ -1,8 +1,5 @@
 const express = require('express')
 const router = express.Router();
-const occurrenceCollection = require('../model/occurrenceModel')
-const accountService = require('../services/accountService')
-const occurrenceService = require('../services/occurrenceService')
 const httpService = require('../services/httpService')
 
 router.get('/', async(req, res) => {
@@ -35,7 +32,7 @@ router.get('/create', async(req, res) => {
 router.post('/create2', async(req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
-        user = await accountService.getAuthenticatedUser(token);
+        user = await httpService.get(`${httpService.domain}/api/account/sign-in`, token)
         if (user && user.profile == "creator" || user.profile == "reviewer") {
             await httpService.post(`${httpService.domain}/api/occurrence`, req.body, user.token);
             res.customRender('novaocorrencia/index', user, {});
@@ -140,7 +137,7 @@ router.get('/search', async(req, res) => {
     user = null;
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
-        user = await accountService.getAuthenticatedUser(token);
+        user = await httpService.get(`${httpService.domain}/api/account/sign-in`, token)
     }
     result = await httpService.get(`${httpService.domain}/api/occurrence/search${queryObjectToQueryString(req.query)}`);
     res.customRender('home/searchedOccurrences', user, { searchedOccurrences: result })

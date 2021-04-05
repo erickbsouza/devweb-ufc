@@ -1,13 +1,8 @@
 const { response } = require('express');
 const md5 = require('md5')
 const express = require('express')
-const accountService = require('../services/accountService')
 const router = express.Router();
 const httpService = require('../services/httpService');
-
-
-
-
 
 router.get('/all', async(req, res) => {
     if (req.query.token || req.cookies.token) {
@@ -28,11 +23,11 @@ router.get('/all', async(req, res) => {
 router.post('/delete-user', async(req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
-        user = await accountService.getAuthenticatedUser(token);
+        user = await httpService.get(`${httpService.domain}/api/account/sign-in`, token);
         if (user != null) {
             console.log(user.email);
             console.log(user.id);
-            await accountService.deleteUser(user);
+            await httpService.delete(`${httpService.domain}/api/account/remove-user`, user.token);
             res.redirect('/');
         } else {
             res.redirect('/account/logout');

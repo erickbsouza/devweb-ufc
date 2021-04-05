@@ -1,7 +1,6 @@
 const { response } = require('express');
 const md5 = require('md5');
 const express = require('express')
-const accountService = require('../services/accountService');
 const router = express.Router();
 const multer = require('multer');
 const httpService = require('../services/httpService');
@@ -144,7 +143,7 @@ router.post('/create-account', async(req, res) => {
 router.post('/delete-user', async(req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
-        user = await accountService.getAuthenticatedUser(token);
+        user = await httpService.get(`${httpService.domain}/api/account/sign-in`, token)
         if (user != null) {
             await httpService.delete(`${httpService.domain}/api/account/remove-user`, user.token);
             res.redirect('/');

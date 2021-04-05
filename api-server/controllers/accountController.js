@@ -24,11 +24,13 @@ router.get('/sign-in', async(req, res) => {
         user = await accountService.getAuthenticatedUser(token);
         if (user != null) {
             //res.customRender('user/perfil-user', user, { user: user });
+            res.send(user);
+            res.sendStatus(200);    //OK
         } else {
-            res.redirect('/account/logout');
+            res.sendStatus(403);    //Forbidden Request
         }
     } else {
-        res.redirect('/');
+        res.sendStatus(401);        //Unauthorized Access
     }
 })
 

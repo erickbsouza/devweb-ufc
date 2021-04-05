@@ -90,7 +90,7 @@ removeUserFromCollection = async(user) => {
 
 updateUserInCollection = async(user) => {
     const collection = dbClient.db(dbName).collection(userCollection);
-    await collection.updateOne({ id: user.id }, {
+    await collection.updateOne({ _id: user._id }, {
         $set: {
             name: user.name,
             surname: user.surname,

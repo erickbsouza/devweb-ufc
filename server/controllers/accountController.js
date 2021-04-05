@@ -8,7 +8,7 @@ const httpService = require('../services/httpService');
 router.post('/login', async(req, res) => {
     if (req.body) {
         try {
-            user = await httpService.post(`${httpService.domain}/api/account/login`, req.body);
+            user = await httpService.patch(`${httpService.domain}/api/account/login`, req.body);
             if (user) {
                 res.cookie('token', user.token, { maxAge: user.expirationDate - Date.now() });
                 res.redirect('/');
@@ -24,7 +24,7 @@ router.post('/login', async(req, res) => {
 })
 
 router.get('/logout', async(req, res) => {
-    await httpService.put(`${httpService.domain}/api/account/logout`, {}, req.cookies.token);
+    await httpService.patch(`${httpService.domain}/api/account/logout`, {}, req.cookies.token);
     res.clearCookie('token');
     res.redirect('/');
 })
@@ -153,7 +153,6 @@ router.post('/delete-user', async(req, res) => {
     } else {
         res.redirect('/');
     }
-
 })
 
 module.exports = router;

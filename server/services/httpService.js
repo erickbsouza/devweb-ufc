@@ -43,6 +43,26 @@ exports.put = async (url, body, token) => {
     }
 }
 
+exports.patch = async (url, body, token) => {
+    var headers = {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+    if (token) {
+        headers.authorization = token
+    }
+    var response = await fetch(url, {
+        method: "PATCH",
+        body: JSON.stringify(body),
+        headers: headers
+    });
+    try {
+        return await response.json();
+    } catch (e){
+        console.log(e);
+        return null;
+    }
+}
+
 exports.get = async (url, token) => {
     var headers = {};
     if (token) {

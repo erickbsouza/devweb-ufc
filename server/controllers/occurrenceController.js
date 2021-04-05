@@ -102,7 +102,7 @@ router.get('/toggle-visibility/:occurrenceId', async(req, res) => {
         token = req.query.token ? req.query.token : req.cookies.token;
         user = await httpService.get(`${httpService.domain}/api/account/revisor`, user.token);
         if (user) {
-            await httpService.put(`${httpService.domain}/api/occurrence/toggle-visibility`, { occurrenceId: req.params.occurrenceId }, token);
+            await httpService.patch(`${httpService.domain}/api/occurrence/toggle-visibility`, { occurrenceId: req.params.occurrenceId }, token);
             res.redirect('/occurrence/review');
         } else {
             res.customRender('home/index', null, {})

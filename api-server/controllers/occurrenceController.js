@@ -77,7 +77,7 @@ router.put('/', async(req, res) =>{
         res.sendStatus(401);
     }
 })
-router.put('/toggle-visibility', async(req, res) =>{
+router.patch('/toggle-visibility', async(req, res) =>{
     if (req.headers.authorization) {
         token = req.headers.authorization;
         user = await accountService.getAuthenticatedReviewerUser(token);
@@ -89,9 +89,9 @@ router.put('/toggle-visibility', async(req, res) =>{
         }
     } else {
         res.sendStatus(401);
-    }
-    
+    }    
 })
+
 router.delete('/:occurrenceId', async(req, res) =>{
     if (req.headers.authorization) {
         token = req.headers.authorization;
@@ -107,60 +107,5 @@ router.delete('/:occurrenceId', async(req, res) =>{
     }
     
 })
-//---------------------------OLD---------------------------
-
-router.get('/delete/:occurrenceId', async(req, res) => {
-    if (req.query.token || req.cookies.token) {
-        token = req.query.token ? req.query.token : req.cookies.token;
-        user = await accountService.getAuthenticatedReviewerUser(token);
-        if (user) {
-            await occurrenceService.deleteOccurrence(parseInt(req.params.occurrenceId));
-            res.redirect('/occurrence/review');
-        } else {
-            res.customRender('home/index', null, {})
-        }
-    } else if (req.query.loginFailed == 1) {
-        res.customRender('home/index', null, { loginFailed: 1 });
-    } else {
-        res.customRender('home/index', null, {})
-    }
-})
-
-router.get('/toggle-visibility/:occurrenceId', async(req, res) => {
-    if (req.query.token || req.cookies.token) {
-        token = req.query.token ? req.query.token : req.cookies.token;
-        user = await accountService.getAuthenticatedReviewerUser(token);
-        if (user) {
-            await occurrenceService.toggleOccurrenceVisibility(parseInt(req.params.occurrenceId));
-            res.redirect('/occurrence/review');
-        } else {
-            res.customRender('home/index', null, {})
-        }
-    } else if (req.query.loginFailed == 1) {
-        res.customRender('home/index', null, { loginFailed: 1 });
-    } else {
-        res.customRender('home/index', null, {})
-    }
-})
-
-router.post('/edit-occurrence/:id', async(req, res) => {
-    if (req.query.token || req.cookies.token) {
-        token = req.query.token ? req.query.token : req.cookies.token;
-        user = await accountService.getAuthenticatedReviewerUser(token);
-        if (user) {
-            var editJson = req.body;
-            editJson._id = parseInt(req.params.id);
-            await occurrenceService.editOccurrence(editJson);
-            res.redirect('/occurrence/review');
-        } else {
-            res.customRender('home/index', null, {})
-        }
-    } else if (req.query.loginFailed == 1) {
-        res.customRender('home/index', null, { loginFailed: 1 });
-    } else {
-        res.customRender('home/index', null, {})
-    }
-})
-
 
 module.exports = router;

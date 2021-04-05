@@ -25,7 +25,6 @@ router.get('/sign-in', async(req, res) => {
         if (user != null) {
             //res.customRender('user/perfil-user', user, { user: user });
             res.send(user);
-            res.sendStatus(200);    //OK
         } else {
             res.sendStatus(403);    //Forbidden Request
         }
@@ -35,30 +34,25 @@ router.get('/sign-in', async(req, res) => {
 })
 
 router.post('/create-user', async(req, res) => {
-    if (req.headers.authorization) {
-        const newUser = {
-            foto: '/images/user1-image.jpg',
-            email: req.body.email,
-            name: req.body.name,
-            surname: req.body.surname,
-            nusuario: req.body.nusuario,
-            telefone: req.body.telefone,
-            hash: md5(req.body.password),
-            profile: 'visitor',
-            token: null,
-            expirationDate: null
-        }
-        await accountService.newUser(newUser);
+    const newUser = {
+        foto: '/images/user1-image.jpg',
+        email: req.body.email,
+        name: req.body.name,
+        surname: req.body.surname,
+        nusuario: req.body.nusuario,
+        telefone: req.body.telefone,
+        hash: md5(req.body.password),
+        profile: 'visitor',
+        token: null,
+        expirationDate: null
+    }
+    await accountService.newUser(newUser);
 
-        user = await accountService.authenticateUser(newUser.email, newUser.hash);
-        if (user) {
-            res.cookie('token', user.token, { maxAge: user.expirationDate - Date.now() });
-            res.send(user);
-        } else {
-            res.sendStatus(403);
-        }
+    user = await accountService.authenticateUser(newUser.email, newUser.hash);
+    if (user) {
+        res.send(user);
     } else {
-        res.sendStatus(401);
+        res.sendStatus(403);
     }
 })
 

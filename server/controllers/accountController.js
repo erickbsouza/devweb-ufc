@@ -128,9 +128,7 @@ router.post('/create-account', async(req, res) => {
             token: null,
             expirationDate: null
         }
-        await httpService.post(`${httpService.domain}/api/account/create-user`, req.body);
-        //user = await httpService.post(`${httpService.domain}/api/account/login`, req.body);
-        user = await accountService.authenticateUser(newUser.email, newUser.hash);
+        user = await httpService.post(`${httpService.domain}/api/account/create-user`, req.body);
         if (user) {
             res.cookie('token', user.token, { maxAge: user.expirationDate - Date.now() });
             res.redirect('/');
@@ -148,7 +146,7 @@ router.post('/delete-user', async(req, res) => {
         token = req.query.token ? req.query.token : req.cookies.token;
         user = await accountService.getAuthenticatedUser(token);
         if (user != null) {
-            await httpService.delete(`${httpService.domain}/api/account/remove-user`, user, user.token);
+            await httpService.delete(`${httpService.domain}/api/account/remove-user`, user.token);
             res.redirect('/');
         } else {
             res.redirect('/account/logout');

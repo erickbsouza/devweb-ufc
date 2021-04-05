@@ -79,7 +79,7 @@ addUserToCollection = async(user) => {
 
 removeUserFromCollection = async(user) => {
     const collection = dbClient.db(dbName).collection(userCollection);
-    await collection.findOneAndDelete({ username: user.username },
+    await collection.findOneAndDelete({ _id: user._id },
         (err, result) => {
             if (err)
                 console.log("Erro");

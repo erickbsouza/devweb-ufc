@@ -33,7 +33,7 @@ router.get('/logout', async(req, res) => {
 router.get('/perfil', async(req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
-        user = await accountService.getAuthenticatedUser(token);
+        user = await httpService.get(`${httpService.domain}/api/account/sign-in`, token);
         if (user != null) {
             res.customRender('user/perfil-user', user, { user: user });
         } else {
@@ -47,7 +47,7 @@ router.get('/perfil', async(req, res) => {
 router.post('/edit-user', async(req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
-        user = await accountService.getAuthenticatedUser(token);
+        user = await httpService.get(`${httpService.domain}/api/account/sign-in`, token);
         if (user != null) {
             user.email = req.body.email;
             user.name = req.body.name;
@@ -80,7 +80,7 @@ router.post('/edit-user-photo', uploadPhoto.single('user-image'), async(req, res
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
         imagePath = `/upload-images/${req.file.filename}`
-        user = await accountService.getAuthenticatedUser(token);
+        user = await httpService.get(`${httpService.domain}/api/account/sign-in`, token)
         if (user != null) {
             user.foto = imagePath;
             await httpService.put(`${httpService.domain}/api/account/edit-user`, user, user.token);
@@ -96,7 +96,7 @@ router.post('/edit-user-photo', uploadPhoto.single('user-image'), async(req, res
 router.post('/edit-pw', async(req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
-        user = await accountService.getAuthenticatedUser(token);
+        user = await httpService.get(`${httpService.domain}/api/account/sign-in`, token);
         if (user != null) {
             if (md5(req.body.senha) != user.hash) {
                 res.redirect('/account/logout');
@@ -128,8 +128,8 @@ router.post('/create-account', async(req, res) => {
             token: null,
             expirationDate: null
         }
-        await accountService.newUser(newUser);
-
+        await httpService.post(`${httpService.domain}/api/account/create-user`, req.body);
+        //user = await httpService.post(`${httpService.domain}/api/account/login`, req.body);
         user = await accountService.authenticateUser(newUser.email, newUser.hash);
         if (user) {
             res.cookie('token', user.token, { maxAge: user.expirationDate - Date.now() });
@@ -148,7 +148,7 @@ router.post('/delete-user', async(req, res) => {
         token = req.query.token ? req.query.token : req.cookies.token;
         user = await accountService.getAuthenticatedUser(token);
         if (user != null) {
-            await accountService.deleteUser(user);
+            await httpService.delete(`${httpService.domain}/api/account/remove-user`, user, user.token);
             res.redirect('/');
         } else {
             res.redirect('/account/logout');

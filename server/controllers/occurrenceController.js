@@ -19,7 +19,7 @@ router.get('/', async(req, res) => {
 router.get('/create', async(req, res) => {
     if (req.query.token || req.cookies.token) {
         token = req.query.token ? req.query.token : req.cookies.token;
-        user = await accountService.getAuthenticatedUser(token);
+        user = await httpService.get(`${httpService.domain}/api/account/sign-in`, token);
         if (user) {
             res.customRender('novaocorrencia/index', user, {});
         } else {

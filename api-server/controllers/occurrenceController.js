@@ -21,7 +21,7 @@ router.get('/occurrenceId/:occurrenceId', async(req, res) => {
 router.post('/', async (req, res) => {
     if (req.headers.authorization) {
         token = req.headers.authorization;
-        user = await accountService.getAuthenticatedUser(token);
+        user = await httpService.get(`${httpService.domain}/api/account/sign-in`, token);
         occurrence = {
             title: req.body.title,
             dateTime: req.body.dateTime,

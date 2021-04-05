@@ -19,8 +19,8 @@ router.post('/login', async(req, res) => {
 })
 
 router.get('/sign-in', async(req, res) => {
-    if (req.query.token || req.cookies.token) {
-        token = req.query.token ? req.query.token : req.cookies.token;
+    if (req.headers.authorization) {
+        token = req.headers.authorization;
         user = await accountService.getAuthenticatedUser(token);
         if (user != null) {
             //res.customRender('user/perfil-user', user, { user: user });
